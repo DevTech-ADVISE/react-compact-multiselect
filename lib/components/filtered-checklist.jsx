@@ -6,9 +6,9 @@ module.exports = React.createClass({
     return {filteredOptions: this.props.options, filterValue: ''};
   },
   handleFilterChange: function(event) {
-    var filterValue = event.target.value;
+    var filterValue = String(event.target.value).toLowerCase();
     var filteredOptions = this.props.options.filter(function(opt){
-        return (opt.label.indexOf(filterValue) > -1); 
+        return (String(opt.label).toLowerCase().indexOf(filterValue) > -1); 
     });
     this.setState({filteredOptions: filteredOptions, filterValue: filterValue});
   },

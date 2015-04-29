@@ -12,4 +12,14 @@
 		}
 	}
 
+	.rcm-checklist-items {
+		.rcm-checklist-item {
+			&:hover {
+				background: #bbb;
+				cursor: pointer;
+			}
+		}
+
+	}
+
 }

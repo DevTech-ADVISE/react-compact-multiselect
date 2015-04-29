@@ -5,9 +5,10 @@ module.exports = React.createClass({
     this.props.onChange(this.props.value);
   },
   render: function() {
+    var checkBoxId = String(this.props.value) + "-" + String(this.props.label);
     return (
-    	<div className="rcm-checklist-item">
-    		<input type="checkbox" checked={this.props.checked} onChange={this.handleCheckToggle}/> <span>{this.props.label}</span>
+    	<div className="rcm-checklist-item" onClick={this.handleCheckToggle}>
+    		<input id={checkBoxId} type="checkbox" checked={this.props.checked} /><label for={checkBoxId}>{this.props.label}</label>
     	</div>
     );
   }
