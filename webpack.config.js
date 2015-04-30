@@ -4,7 +4,7 @@ var path = require('path');
 
 module.exports = {
   context: path.join(__dirname),
-  entry: './lib/index.js',
+  entry: './index.js',
 
   output: {
     path: path.join(__dirname),
@@ -13,9 +13,9 @@ module.exports = {
     library: 'ReactCompactMultiselect'
   },
 
-  externals: {
-   'react': 'var React'
-  },
+  // externals: {
+  //  'react': 'var React'
+  // },
 
   module: {
     loaders: [
@@ -27,7 +27,7 @@ module.exports = {
           'includePaths[]=' + (path.resolve(__dirname, './node_modules'))
       },
       {
-        test: /\.jsx$/,
+        test: /\.jsx?$/,
         loader: 'jsx-loader?harmony'
       }
     ]

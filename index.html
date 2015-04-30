@@ -4,39 +4,7 @@
 </head>
 <body>
   <div id="main"></div>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.12.2/react-with-addons.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.12.2/JSXTransformer.js"></script>
   <script src="react-compact-multiselect.js"></script>
-  <script type="text/jsx">
-  var DemoCompactMultiselect = React.createClass({
-  	options: [{value: 1, label: "One"},
-  			  {value: 2, label: "Two"},
-  			  {value: 3, label: "Three"}, 
-  			  {value: 4, label: "Four"}],
-  	getInitialState: function() {
-  		return {value: []}
-  	},
-  	handleSelectionChange: function(newValueState) {
-  		this.setState({value: newValueState});
-  	},
-  	render: function() {
 
-  		return (
-  			<div>
-	  			<div>Selected Values: {this.state.value.join(', ')}</div>
-	  			<ReactCompactMultiselect 
-	  				options={this.options}
-	  				initialValue={this.state.value}
-	  				label={"Numbers"} 
-	  				onChange={this.handleSelectionChange} />
-  			</div>
-  		)
-  	}
-  });
-    /* jshint undef:false */
-    React.render(
-    	<DemoCompactMultiselect />
-    	, document.getElementById('main'));
-  </script>
 </body>
 </html>
