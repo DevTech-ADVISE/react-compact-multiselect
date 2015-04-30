@@ -1,4 +1,4 @@
-var React = require("react");
+var React = require("react/addons");
 var ChecklistItem = require("./checklist-item.jsx");
 
 module.exports = React.createClass({
