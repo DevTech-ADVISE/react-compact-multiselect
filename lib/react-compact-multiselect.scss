@@ -1,2 +1,25 @@
 .react-compact-multiselect {
+
+
+	.drop-trigger {
+
+		padding: 4px;
+		.rcm-selected-count {
+			display: inline;
+			border: 2px solid grey;
+			border-radius: 2px;
+			padding: 0px 3px;
+		}
+	}
+
+	.rcm-checklist-items {
+		.rcm-checklist-item {
+			&:hover {
+				background: #bbb;
+				cursor: pointer;
+			}
+		}
+
+	}
+
 }
