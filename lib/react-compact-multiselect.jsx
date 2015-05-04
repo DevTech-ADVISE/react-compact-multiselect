@@ -10,7 +10,7 @@ require("./react-compact-multiselect.scss");
 
 
 module.exports = React.createClass({
-  props: {
+  propTypes: {
     initialValue: React.PropTypes.array
   },
   componentWillMount: function() {
