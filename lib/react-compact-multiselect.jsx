@@ -10,7 +10,7 @@ require("./react-compact-multiselect.scss");
 
 
 module.exports = React.createClass({
-  props: {
+  propTypes: {
     initialValue: React.PropTypes.array
   },
   componentWillMount: function() {
@@ -30,18 +30,18 @@ module.exports = React.createClass({
   },
   render: function() {
     return (
-    	<div className="react-compact-multiselect">
-    		
-    		<DropButton >
+      <div className="react-compact-multiselect">
+    
+        <DropButton >
           <DropTrigger>{this.props.label} <div className="rcm-selected-count">{this.state.value.length}</div></DropTrigger>
           <DropBoxContent>
-      			<FilteredChecklist 
-      				options={this.props.options}
-      				onChange={this.handleCheckToggle}
-      				value={this.state.value} />
+            <FilteredChecklist 
+              options={this.props.options}
+              onChange={this.handleCheckToggle}
+              value={this.state.value} />
           </DropBoxContent>
-    		</DropButton>
-    	</div>
+        </DropButton>
+      </div>
     );
   }
 });

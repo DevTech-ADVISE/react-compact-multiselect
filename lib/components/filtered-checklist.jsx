@@ -18,8 +18,8 @@ module.exports = React.createClass({
         return <ChecklistItem label={opt.label} checked={checked} value={opt.value} onChange={this.props.onChange} />
     }.bind(this));
     return (
-    	<div className="rcm-filtered-checklist">
-    		<div className="rcm-filter-box">
+      <div className="rcm-filtered-checklist">
+        <div className="rcm-filter-box">
                 <input  type="text" 
                         onChange={this.handleFilterChange} 
                         placeholder="Type to filter..." 
@@ -28,7 +28,7 @@ module.exports = React.createClass({
             <div className="rcm-checklist-items">
                 {checklistItems}
             </div>
-    	</div>
+      </div>
     );
   }
 });
