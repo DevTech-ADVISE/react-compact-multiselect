@@ -6,9 +6,15 @@
 		padding: 4px;
 		.rcm-selected-count {
 			display: inline;
-			border: 2px solid grey;
-			border-radius: 2px;
-			padding: 0px 3px;
+			//border: 1px solid grey;
+			border-radius: 10px;
+			padding: 3px 5px;
+			color: #efefef;
+			background: rgba(148, 148, 148, 0.72);
+			&:after {
+				color: white;
+				content: " ✓";
+			}
 		}
 	}
 
@@ -19,18 +25,12 @@
 				cursor: pointer;
 			}
 		}
-
 	}
 
 	.rcm-filter-box {
-		
-
 		input {
 			width: 100%;
 			padding: 5px;
 		 }
 	}
-
-
-
 }

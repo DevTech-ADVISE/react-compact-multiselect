@@ -1,7 +1,15 @@
 var React = require("react/addons");
 var ChecklistItem = require("./checklist-item.jsx");
 
+var SELECT_ALL = "SELECT_ALL";
+var DESELECT_ALL = "DESELECT_ALL";
+
 module.exports = React.createClass({
+  propTypes: {
+    value: React.PropTypes.array,
+    options: React.PropTypes.array,
+    onChange: React.PropTypes.func,
+  },
   getInitialState: function() {
     return {filteredOptions: this.props.options, filterValue: ''};
   },
@@ -12,22 +20,34 @@ module.exports = React.createClass({
     });
     this.setState({filteredOptions: filteredOptions, filterValue: filterValue});
   },
-  render: function() {
-    var checklistItems = this.state.filteredOptions.map(function(opt){
+  clearFilter: function() {
+    this.setState({filteredOptions: this.props.options, filterValue: ''});
+  },
+  getItemsChecked: function() {
+
+    return this.state.filteredOptions.map(function(opt){
         var checked = (this.props.value.indexOf(opt.value)>-1);
+
         return <ChecklistItem label={opt.label} checked={checked} value={opt.value} onChange={this.props.onChange} />
     }.bind(this));
+    
+  },
+  render: function() {
+    var checklistItems = this.getItemsChecked();
+
     return (
       <div className="rcm-filtered-checklist">
         <div className="rcm-filter-box">
-                <input  type="text" 
-                        onChange={this.handleFilterChange} 
-                        placeholder="Type to filter..." 
-                        value={this.state.filterValue}/>
-                </div>
-            <div className="rcm-checklist-items">
-                {checklistItems}
-            </div>
+          <input  type="text" 
+                  onChange={this.handleFilterChange} 
+                  placeholder="Type to filter..." 
+                  value={this.state.filterValue}/>
+          </div>
+          <div className="clear-filter" onClick={this.clearFilter}>X</div>
+        
+        <div className="rcm-checklist-items">
+          {checklistItems}
+        </div>
       </div>
     );
   }
