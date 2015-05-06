@@ -1,6 +1,6 @@
 var React = require('react/addons');
 var ReactCompactMultiselect = require('./lib/react-compact-multiselect.jsx');
-
+var MultiSelect = ReactCompactMultiselect.ReactCompactMultiselect;
 
 var DemoCompactMultiselect = React.createClass({
   	options: [{value: 1, label: "One"},
@@ -18,11 +18,12 @@ var DemoCompactMultiselect = React.createClass({
   		return (
   			<div>
 	  			<div>Selected Values: {this.state.value.join(', ')}</div>
-	  			<ReactCompactMultiselect 
+	  			<MultiSelect 
 	  				options={this.options}
 	  				initialValue={this.state.value}
 	  				label={"Numbers"} 
-	  				onChange={this.handleSelectionChange} />
+	  				onChange={this.handleSelectionChange}
+            layoutMode={ReactCompactMultiselect.RIGHT_ALIGN} />
   			</div>
   		)
   	}
