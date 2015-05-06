@@ -4,14 +4,21 @@ var DropButton = ReactDropButton.DropButton;
 var DropTrigger = ReactDropButton.DropTrigger;
 var DropBoxContent = ReactDropButton.DropBoxContent;
 var FilteredChecklist = require("./components/filtered-checklist.jsx");
-
-
 require("./react-compact-multiselect.scss");
 
+var LEFT_ALIGN = ReactDropButton.LEFT_ALIGN;
+var BOTTOM_ALIGN = ReactDropButton.BOTTOM_ALIGN;
+var RIGHT_ALIGN = ReactDropButton.RIGHT_ALIGN;
+module.exports = {};
 
-module.exports = React.createClass({
+
+var ReactCompactMultiselect = React.createClass({
   propTypes: {
-    initialValue: React.PropTypes.array
+    initialValue: React.PropTypes.array,
+    layoutMode: React.PropTypes.string
+  },
+  getDefaultProps: function() {
+    return {layoutMode: LEFT_ALIGN};
   },
   componentWillMount: function() {
     this.setState({value: this.props.initialValue});
@@ -32,7 +39,7 @@ module.exports = React.createClass({
     return (
       <div className="react-compact-multiselect">
     
-        <DropButton >
+        <DropButton layoutMode={this.props.layoutMode}>
           <DropTrigger>{this.props.label} <div className="rcm-selected-count">{this.state.value.length}</div></DropTrigger>
           <DropBoxContent>
             <FilteredChecklist 
@@ -45,3 +52,8 @@ module.exports = React.createClass({
     );
   }
 });
+
+module.exports.ReactCompactMultiselect = ReactCompactMultiselect;
+module.exports.LEFT_ALIGN = LEFT_ALIGN;
+module.exports.BOTTOM_ALIGN = BOTTOM_ALIGN;
+module.exports.RIGHT_ALIGN = RIGHT_ALIGN;
