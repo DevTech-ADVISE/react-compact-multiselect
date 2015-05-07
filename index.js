@@ -23,7 +23,7 @@ var DemoCompactMultiselect = React.createClass({
 	  				initialValue={this.state.value}
 	  				label={"Numbers"} 
 	  				onChange={this.handleSelectionChange}
-            layoutMode={ReactCompactMultiselect.RIGHT_ALIGN} />
+            layoutMode={ReactCompactMultiselect.LEFT_ALIGN} />
   			</div>
   		)
   	}
