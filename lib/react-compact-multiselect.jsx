@@ -19,8 +19,10 @@ var ReactCompactMultiselect = React.createClass({
     ALIGN_CONTENT_NW: ALIGN_CONTENT_NW
   },
   propTypes: {
+    options: React.PropTypes.array,
     initialValue: React.PropTypes.array,
     layoutMode: React.PropTypes.string,
+    groupBy: React.PropTypes.string,
     onChange: React.PropTypes.func
   },
   getDefaultProps: function() {
@@ -72,6 +74,7 @@ var ReactCompactMultiselect = React.createClass({
           <DropBoxContent>
             <FilteredChecklist 
               options={this.props.options}
+              groupBy={this.props.groupBy}
               onChange={this.handleCheckToggle}
               value={this.state.value} />
             <div className="rcm-menu">
