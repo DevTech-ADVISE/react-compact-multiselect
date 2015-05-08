@@ -5,16 +5,18 @@ var DropBoxContent = DropButton.DropBoxContent;
 var FilteredChecklist = require("./components/filtered-checklist.jsx");
 require("./react-compact-multiselect.scss");
 
-var LEFT_ALIGN = DropButton.LEFT_ALIGN;
-var BOTTOM_ALIGN = DropButton.BOTTOM_ALIGN;
-var RIGHT_ALIGN = DropButton.RIGHT_ALIGN;
+var ALIGN_CONTENT_SE = DropButton.ALIGN_CONTENT_SE;
+var ALIGN_CONTENT_NE = DropButton.ALIGN_CONTENT_NE;
+var ALIGN_CONTENT_SW = DropButton.ALIGN_CONTENT_SW;
+var ALIGN_CONTENT_NW = DropButton.ALIGN_CONTENT_NW;
 
 
 var ReactCompactMultiselect = React.createClass({
   statics: {
-    LEFT_ALIGN: LEFT_ALIGN,
-    BOTTOM_ALIGN: BOTTOM_ALIGN,
-    RIGHT_ALIGN: RIGHT_ALIGN
+    ALIGN_CONTENT_SE: ALIGN_CONTENT_SE,
+    ALIGN_CONTENT_NE: ALIGN_CONTENT_NE,
+    ALIGN_CONTENT_SW: ALIGN_CONTENT_SW,
+    ALIGN_CONTENT_NW: ALIGN_CONTENT_NW
   },
   propTypes: {
     initialValue: React.PropTypes.array,
@@ -22,7 +24,7 @@ var ReactCompactMultiselect = React.createClass({
     onChange: React.PropTypes.func
   },
   getDefaultProps: function() {
-    return {layoutMode: LEFT_ALIGN};
+    return {layoutMode: ALIGN_CONTENT_SE};
   },
   getInitialState: function() {
     return {value: []};
