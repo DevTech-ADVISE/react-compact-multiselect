@@ -61,12 +61,11 @@ var ReactCompactMultiselect = React.createClass({
     this.refs.DropButton.toggleDropBox();
   },
   render: function() {
-    var selectedCount = (<div className="rcm-selected-count">{this.state.value.length}</div>);
+    var selectedCount = (<span className="rcm-selected-count">{this.state.value.length}</span>);
     if(this.state.value.length === 0)
       selectedCount = "";
     return (
       <div className="react-compact-multiselect">
-    
         <DropButton layoutMode={this.props.layoutMode} ref="DropButton">
           <DropTrigger>{this.props.label} {selectedCount} </DropTrigger>
           <DropBoxContent>
@@ -75,9 +74,9 @@ var ReactCompactMultiselect = React.createClass({
               onChange={this.handleCheckToggle}
               value={this.state.value} />
             <div className="rcm-menu">
-              <div className="select-all" onClick={this.selectAll}><div className="select-all-button">✓</div>Select All</div>
-              <div className="deselect-all" onClick={this.deselectAll}><div className="deselect-all-button">X</div>Deselect All</div>
-              <div className="done-selecting-button" onClick={this.doneSelecting}>Done</div>
+              <button className="select-all" name="select-all" onClick={this.selectAll}><span className="button-icon">&#x2713;</span>Select All</button>
+              <button className="deselect-all" name="deselect-all" onClick={this.deselectAll}><span className="button-icon">&#215;</span>Deselect All</button>
+              <button className="done-selecting-button" name="done" onClick={this.doneSelecting}>Done</button>
             </div>
           </DropBoxContent>
         </DropButton>
