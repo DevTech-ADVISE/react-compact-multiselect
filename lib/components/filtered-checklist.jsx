@@ -50,7 +50,7 @@ module.exports = React.createClass({
                                     );
                                   }.bind(this));
       if(groupOptions.length > 0) {
-        var heading = (<div className="rcm-group-heading">{group}</div>)
+        var heading = (<li className="rcm-group-heading">{group}</li>)
         groupOptionElements.splice(0, 0, heading);
       }
       
@@ -76,12 +76,12 @@ module.exports = React.createClass({
                   onChange={this.handleFilterChange} 
                   placeholder="Type to filter..." 
                   value={this.state.filterValue}/>
-          </div>
-          <div className="clear-filter" onClick={this.clearFilter}>X</div>
-        
-        <div className="rcm-checklist-items">
-          {checklistItems}
+          <button className="clear-filter" name="clear-filter" onClick={this.clearFilter}>&#215;</button>
         </div>
+        
+        <ul className="rcm-checklist-items">
+          {checklistItems}
+        </ul>
       </div>
     );
   }

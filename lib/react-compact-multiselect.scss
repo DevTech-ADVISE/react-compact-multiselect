@@ -1,108 +1,210 @@
+/* @extends */
+.font {font-family: Arial, Helvetica, sans-serif;}
+.user-select-none {
+	-webkit-user-select: none;  /* Chrome all / Safari all */
+	-moz-user-select: none;     /* Firefox all */
+	-ms-user-select: none;      /* IE 10+ */
+
+	/* No support for these yet, use at own risk */
+	-o-user-select: none;
+	user-select: none;
+}
+.clearfix:before, .clearfix:after {content: " ";display: table;}
+.clearfix:after {clear: both;}
+
 .react-compact-multiselect {
+	@extend .font;
+	display: inline-block;
+	position: relative;
 
-
-	.drop-trigger {
-
-		padding: 4px;
-		.rcm-selected-count {
-			display: inline;
-			//border: 1px solid grey;
-			border-radius: 10px;
-			padding: 3px 5px;
-			color: #efefef;
-			background: rgba(148, 148, 148, 0.72);
-			&:after {
-				color: white;
-				content: " ✓";
-			}
+	.rcm-selected-count {
+		display: inline-block;
+		padding: 0 .1em 0 0;
+		color: #222;
+		font-size: .8em;
+		position: relative;
+		margin: -.1em .8em 0 .2em;
+		overflow: visible;
+		text-indent: 3px;
+		
+		&:before {
+			position: absolute;
+			content: " ";
+			width: 120%;
+			height: 120%;
+			background-color: #fff;
+			z-index: -1;
+			padding-right: 1em;
+			top: -10%;
+			left: -10%;
+			border-radius: 1em;
+			box-shadow: 0 0 0 1px rgba(0,0,0,.1);
+		}
+		&:after {
+			color: #2d8bee;
+			content: "\2713 ";
+			position: absolute;
+			top: 0;
+			text-indent: 2px;
 		}
 	}
 
-	.rcm-group-heading {
-		background: #638CA1;
-		color: #F5F5F5;
-		padding: 4px 0px 2px 4px;
-		border-radius: 2px;
-	}
+	.react-drop-button .rdb-drop-box {padding:0;min-width:186px;background-color: #fff;}
+	.rcm-filtered-checklist {}
+	.rcm-filter-box { //child of .rcm-filtered-checklist
+		position: relative;
+		padding: .4em;
+		border-bottom: 1px solid #d0d0d0;
+		background-color: #f5f5f5;
 
-	.rcm-checklist-items {
-		.rcm-checklist-item {
-			&:hover {
-				background: #bbb;
-				cursor: pointer;
-			}
-		}
-	}
-
-	.rcm-filter-box {
 		input {
 			width: 100%;
-			padding: 5px;
-		 }
+			padding: .08em .2em .1em .2em;
+			font-size: 1em;
+			font-weight: 100;
+			line-height: 1;
+
+			&::-webkit-input-placeholder {
+			   font-size:.8em;
+			   line-height: 1.4em;
+			   font-weight: 100;
+			   font-style: italic;
+			}
+
+			&::-moz-placeholder {  /* Firefox 19+ */
+			   font-size:.8em;
+			   line-height: 1.4em;
+			   font-weight: 100;
+			   font-style: italic;
+			}
+
+			&:-ms-input-placeholder {  
+			   font-size:.8em;
+			   line-height: 1.4em;
+			   font-weight: 100;
+			   font-style: italic;
+			}
+		}
+		.clear-filter {
+			position: absolute;
+			top: .5em;
+			right: .5em;
+			padding: .0em .3em .2em;
+			border: 0;
+			background: transparent;
+			font-size: 1em;
+			line-height: 1;
+			height: 1.3em;
+		}
 
 	}
 
-	.clear-filter {
-		color: rgb(208, 48, 48);
+	.rcm-group-heading {  //child of .rcm-filtered-checklist
+		@extend .user-select-none;
+		color: #111;
+		padding: .5em .6em;
+		border-radius: 2px;
+		font-size: .8em;
+		font-weight: bold;
+		background-color: #dcecfc;
+		text-transform: uppercase;
+	}
+
+	.rcm-checklist-items {  //child of .rcm-filtered-checklist
+		@extend .clearfix;
+		box-shadow: inset 0 0 9px 0 rgba(0, 0, 0, 0.05), inset 0 1px 1px 0 rgba(0, 0, 0, 0.1), inset 0 -1px 3px 0 rgba(0, 0, 0, 0.1);
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		overflow-y: auto;
+		max-height: 300px;
+
+		.rcm-checklist-item {
+			@extend .user-select-none;
+			margin: .3em;
+			padding: .1em 0;
+			font-size: 1em;
+			cursor: pointer;
+
+			input {
+				font-size: 1em;
+			}
+			label {
+				font-size: 1em;
+			}
+
+			&:hover {
+				background: #eaeaea;
+			}
+		}
 	}
 
 	.rcm-menu {
-	border-top: 1px solid rgb(228, 228, 228);
-	margin-top: 5px;
-	padding-top: 5px;
-	font-family: Arial, Helvetica, sans-serif;
+		background-color:#f3f3f3;
+		border-top: 1px solid #d0d0d0;
+		padding: .4em;
 
-		.select-all {
-			border: 1px solid grey;
-			border-radius: 3px;
-			float: left;
-			font-size: 10px;
-			background: white;
+		button {
+			@extend .user-select-none;
+			font-size: 1em;
+			background-color: #eee;
+			border-radius: 2px;
+			border: 1px solid #ccc;
+			color: #555;
+			position: relative;
+			padding: .2em .4em .25em 1em;
+			text-align: center;
+			box-shadow: inset 2px 2px 2px 0px rgba(255,255,255,.7), inset -1px -1px 1px 0 rgba(0,0,0,.1);
 
-			.select-all-button {
-				font-size: 14px;
-				text-align: center;
+			.button-icon {
+				font-size: .9em;
+				padding: 0;
+				float: left;
+				position: absolute;
+				left: 3px;
+				height: 100%;
+				top: 1px;
+
+				& + span { //button text
+					font-size:.7em;
+				}
 			}
 
 			&:hover {
-				background: rgba(148, 148, 148, 0.72);
-				cursor: pointer;
+				border-color:#c9c9c9;
+				box-shadow: inset 1px 1px 1px 0px rgba(255,255,255,.7), inset 0 0 1px 0 rgba(0,0,0,.1);
+			}
+
+			&:active {
+				background-color:#fafafa;
+				border-color:#bbb;
+				box-shadow: inset 1px 1px 1px 0px rgba(255,255,255,.7), inset 0 0 1px 0 rgba(0,0,0,.1);
+				color: #2d8bee;
 			}
 		}
 
+		.select-all {
+			margin-right: 3%;
+			width: 46%;
+			max-width: 84px;
+			min-width: 56px;
+		}
+
 		.deselect-all {
-			border: 1px solid grey;
-			border-radius: 3px;
-			float: left;
-			font-size: 10px;
-			background: white;
-			margin-left: 5px;
+			width: 51%;
+			max-width: 96px;
+			min-width: 66px;
 
-			.deselect-all-button {
-				font-size: 14px;
-				text-align: center;
-			}
-
-			&:hover {
-				background: rgba(148, 148, 148, 0.72);
-				cursor: pointer;
+			.button-icon {
+				font-size: 1.1em;
+				line-height: .9;
 			}
 		}
 		
 		.done-selecting-button {
-			border: 1px solid grey;
-			border-radius: 3px;
-			float: left;
-			font-size: 14px;
-			background: white;
-			margin-left: 10px;
-			padding: 5px;
-
-			&:hover {
-				background: rgba(148, 148, 148, 0.72);
-				cursor: pointer;
-			}
+			width: 100%;
+			margin-top: .4em;
+			padding: .3em .4em .4em;
 		}
-
 	}
 }
