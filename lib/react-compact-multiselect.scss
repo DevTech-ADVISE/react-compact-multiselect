@@ -1,0 +1,108 @@
+.react-compact-multiselect {
+
+
+	.drop-trigger {
+
+		padding: 4px;
+		.rcm-selected-count {
+			display: inline;
+			//border: 1px solid grey;
+			border-radius: 10px;
+			padding: 3px 5px;
+			color: #efefef;
+			background: rgba(148, 148, 148, 0.72);
+			&:after {
+				color: white;
+				content: " ✓";
+			}
+		}
+	}
+
+	.rcm-group-heading {
+		background: #638CA1;
+		color: #F5F5F5;
+		padding: 4px 0px 2px 4px;
+		border-radius: 2px;
+	}
+
+	.rcm-checklist-items {
+		.rcm-checklist-item {
+			&:hover {
+				background: #bbb;
+				cursor: pointer;
+			}
+		}
+	}
+
+	.rcm-filter-box {
+		input {
+			width: 100%;
+			padding: 5px;
+		 }
+
+	}
+
+	.clear-filter {
+		color: rgb(208, 48, 48);
+	}
+
+	.rcm-menu {
+	border-top: 1px solid rgb(228, 228, 228);
+	margin-top: 5px;
+	padding-top: 5px;
+	font-family: Arial, Helvetica, sans-serif;
+
+		.select-all {
+			border: 1px solid grey;
+			border-radius: 3px;
+			float: left;
+			font-size: 10px;
+			background: white;
+
+			.select-all-button {
+				font-size: 14px;
+				text-align: center;
+			}
+
+			&:hover {
+				background: rgba(148, 148, 148, 0.72);
+				cursor: pointer;
+			}
+		}
+
+		.deselect-all {
+			border: 1px solid grey;
+			border-radius: 3px;
+			float: left;
+			font-size: 10px;
+			background: white;
+			margin-left: 5px;
+
+			.deselect-all-button {
+				font-size: 14px;
+				text-align: center;
+			}
+
+			&:hover {
+				background: rgba(148, 148, 148, 0.72);
+				cursor: pointer;
+			}
+		}
+		
+		.done-selecting-button {
+			border: 1px solid grey;
+			border-radius: 3px;
+			float: left;
+			font-size: 14px;
+			background: white;
+			margin-left: 10px;
+			padding: 5px;
+
+			&:hover {
+				background: rgba(148, 148, 148, 0.72);
+				cursor: pointer;
+			}
+		}
+
+	}
+}
