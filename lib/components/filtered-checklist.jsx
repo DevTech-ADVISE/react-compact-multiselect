@@ -19,7 +19,7 @@ module.exports = React.createClass({
     var filteredOptions = this.props.options.filter(function(opt){
         return (String(opt.label).toLowerCase().indexOf(filterValue) > -1); 
     });
-    this.setState({filteredOptions: filteredOptions, filterValue: filterValue});
+    this.setState({filteredOptions: filteredOptions, filterValue: String(event.target.value)});
   },
   clearFilter: function() {
     this.setState({filteredOptions: this.props.options, filterValue: ''});
