@@ -85,7 +85,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		  			React.createElement(ReactCompactMultiselect, {
 		  				options: this.options, 
 		  				initialValue: this.state.value, 
-		  				label: "Numbers", 
+		  				label: "Tv Shows", 
 	            groupBy: "network", 
 		  				onChange: this.handleSelectionChange, 
 	            layoutMode: ReactCompactMultiselect.ALIGN_CONTENT_SE})
@@ -200,7 +200,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(7);
+	module.exports = __webpack_require__(8);
 
 
 /***/ },
@@ -208,7 +208,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(2);
-	var ChecklistItem = __webpack_require__(8);
+	var ChecklistItem = __webpack_require__(7);
 	var Lazy = __webpack_require__(10);
 	var SELECT_ALL = "SELECT_ALL";
 	var DESELECT_ALL = "DESELECT_ALL";
@@ -337,6 +337,26 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
+	var React = __webpack_require__(2);
+
+	module.exports = React.createClass({displayName: "exports",
+	  handleCheckToggle: function(event) {
+	    this.props.onChange(this.props.value);
+	  },
+	  render: function() {
+	    var checkBoxId = String(this.props.value) + "-" + String(this.props.label);
+	    return (
+	      React.createElement("div", {className: "rcm-checklist-item", onClick: this.handleCheckToggle}, 
+	        React.createElement("input", {id: checkBoxId, type: "checkbox", checked: this.props.checked}), React.createElement("label", {for: checkBoxId}, this.props.label)
+	      )
+	    );
+	  }
+	});
+
+/***/ },
+/* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
 	/* WEBPACK VAR INJECTION */(function(process) {/**
 	 * Copyright 2013-2014, Facebook, Inc.
 	 * All rights reserved.
@@ -389,26 +409,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = React;
 
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(24)))
-
-/***/ },
-/* 8 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(2);
-
-	module.exports = React.createClass({displayName: "exports",
-	  handleCheckToggle: function(event) {
-	    this.props.onChange(this.props.value);
-	  },
-	  render: function() {
-	    var checkBoxId = String(this.props.value) + "-" + String(this.props.label);
-	    return (
-	      React.createElement("div", {className: "rcm-checklist-item", onClick: this.handleCheckToggle}, 
-	        React.createElement("input", {id: checkBoxId, type: "checkbox", checked: this.props.checked}), React.createElement("label", {for: checkBoxId}, this.props.label)
-	      )
-	    );
-	  }
-	});
 
 /***/ },
 /* 9 */
@@ -7341,7 +7341,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
-	var shallowEqual = __webpack_require__(53);
+	var shallowEqual = __webpack_require__(56);
 
 	/**
 	 * If your React component's render function is "pure", e.g. it will render the
@@ -7403,7 +7403,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  __webpack_require__(17)
 	);
 	var ReactCSSTransitionGroupChild = React.createFactory(
-	  __webpack_require__(54)
+	  __webpack_require__(53)
 	);
 
 	var ReactCSSTransitionGroup = React.createClass({
@@ -7466,11 +7466,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	"use strict";
 
 	var React = __webpack_require__(14);
-	var ReactTransitionChildMapping = __webpack_require__(55);
+	var ReactTransitionChildMapping = __webpack_require__(54);
 
 	var assign = __webpack_require__(49);
 	var cloneWithProps = __webpack_require__(20);
-	var emptyFunction = __webpack_require__(56);
+	var emptyFunction = __webpack_require__(55);
 
 	var ReactTransitionGroup = React.createClass({
 	  displayName: 'ReactTransitionGroup',
@@ -14912,7 +14912,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ReactPropTypeLocationNames = __webpack_require__(82);
 
 	var deprecated = __webpack_require__(50);
-	var emptyFunction = __webpack_require__(56);
+	var emptyFunction = __webpack_require__(55);
 
 	/**
 	 * Collection of methods that allow declaration and validation of props that are
@@ -15643,54 +15643,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/**
-	 * Copyright 2013-2014, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule shallowEqual
-	 */
-
-	"use strict";
-
-	/**
-	 * Performs equality by iterating through keys on an object and returning
-	 * false when any key has values which are not strictly equal between
-	 * objA and objB. Returns true when the values of all keys are strictly equal.
-	 *
-	 * @return {boolean}
-	 */
-	function shallowEqual(objA, objB) {
-	  if (objA === objB) {
-	    return true;
-	  }
-	  var key;
-	  // Test for A's keys different from B.
-	  for (key in objA) {
-	    if (objA.hasOwnProperty(key) &&
-	        (!objB.hasOwnProperty(key) || objA[key] !== objB[key])) {
-	      return false;
-	    }
-	  }
-	  // Test for B's keys missing from A.
-	  for (key in objB) {
-	    if (objB.hasOwnProperty(key) && !objA.hasOwnProperty(key)) {
-	      return false;
-	    }
-	  }
-	  return true;
-	}
-
-	module.exports = shallowEqual;
-
-
-/***/ },
-/* 54 */
-/***/ function(module, exports, __webpack_require__) {
-
 	/* WEBPACK VAR INJECTION */(function(process) {/**
 	 * Copyright 2013-2014, Facebook, Inc.
 	 * All rights reserved.
@@ -15826,7 +15778,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(24)))
 
 /***/ },
-/* 55 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -15931,7 +15883,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 56 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -15966,6 +15918,54 @@ return /******/ (function(modules) { // webpackBootstrap
 	emptyFunction.thatReturnsArgument = function(arg) { return arg; };
 
 	module.exports = emptyFunction;
+
+
+/***/ },
+/* 56 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright 2013-2014, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule shallowEqual
+	 */
+
+	"use strict";
+
+	/**
+	 * Performs equality by iterating through keys on an object and returning
+	 * false when any key has values which are not strictly equal between
+	 * objA and objB. Returns true when the values of all keys are strictly equal.
+	 *
+	 * @return {boolean}
+	 */
+	function shallowEqual(objA, objB) {
+	  if (objA === objB) {
+	    return true;
+	  }
+	  var key;
+	  // Test for A's keys different from B.
+	  for (key in objA) {
+	    if (objA.hasOwnProperty(key) &&
+	        (!objB.hasOwnProperty(key) || objA[key] !== objB[key])) {
+	      return false;
+	    }
+	  }
+	  // Test for B's keys missing from A.
+	  for (key in objB) {
+	    if (objB.hasOwnProperty(key) && !objA.hasOwnProperty(key)) {
+	      return false;
+	    }
+	  }
+	  return true;
+	}
+
+	module.exports = shallowEqual;
 
 
 /***/ },
@@ -16511,7 +16511,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
-	var emptyFunction = __webpack_require__(56);
+	var emptyFunction = __webpack_require__(55);
 
 	/**
 	 * Similar to invariant but only logs a warning if the condition is not met.
@@ -16560,7 +16560,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	"use strict";
 
 	var assign = __webpack_require__(49);
-	var emptyFunction = __webpack_require__(56);
+	var emptyFunction = __webpack_require__(55);
 	var invariant = __webpack_require__(60);
 	var joinClasses = __webpack_require__(123);
 	var warning = __webpack_require__(61);
@@ -17817,8 +17817,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var EventConstants = __webpack_require__(67);
 	var EventPluginHub = __webpack_require__(68);
 	var EventPluginRegistry = __webpack_require__(125);
-	var ReactEventEmitterMixin = __webpack_require__(128);
-	var ViewportMetrics = __webpack_require__(129);
+	var ReactEventEmitterMixin = __webpack_require__(129);
+	var ViewportMetrics = __webpack_require__(130);
 
 	var assign = __webpack_require__(49);
 	var isEventSupported = __webpack_require__(89);
@@ -18176,8 +18176,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var PooledClass = __webpack_require__(58);
 
 	var assign = __webpack_require__(49);
-	var emptyFunction = __webpack_require__(56);
-	var getEventTarget = __webpack_require__(130);
+	var emptyFunction = __webpack_require__(55);
+	var getEventTarget = __webpack_require__(128);
 
 	/**
 	 * @interface Event
@@ -20890,7 +20890,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var EventConstants = __webpack_require__(67);
 
-	var emptyFunction = __webpack_require__(56);
+	var emptyFunction = __webpack_require__(55);
 
 	var topLevelTypes = EventConstants.topLevelTypes;
 
@@ -21078,7 +21078,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Transaction = __webpack_require__(59);
 
 	var assign = __webpack_require__(49);
-	var emptyFunction = __webpack_require__(56);
+	var emptyFunction = __webpack_require__(55);
 
 	var RESET_BATCHED_UPDATES = {
 	  initialize: emptyFunction,
@@ -21151,7 +21151,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
-	var AutoFocusMixin = __webpack_require__(146);
+	var AutoFocusMixin = __webpack_require__(147);
 	var ReactBrowserComponentMixin = __webpack_require__(88);
 	var ReactCompositeComponent = __webpack_require__(33);
 	var ReactElement = __webpack_require__(36);
@@ -21221,7 +21221,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	"use strict";
 
 	var EventConstants = __webpack_require__(67);
-	var LocalEventTrapMixin = __webpack_require__(147);
+	var LocalEventTrapMixin = __webpack_require__(146);
 	var ReactBrowserComponentMixin = __webpack_require__(88);
 	var ReactCompositeComponent = __webpack_require__(33);
 	var ReactElement = __webpack_require__(36);
@@ -21275,7 +21275,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	"use strict";
 
 	var EventConstants = __webpack_require__(67);
-	var LocalEventTrapMixin = __webpack_require__(147);
+	var LocalEventTrapMixin = __webpack_require__(146);
 	var ReactBrowserComponentMixin = __webpack_require__(88);
 	var ReactCompositeComponent = __webpack_require__(33);
 	var ReactElement = __webpack_require__(36);
@@ -21326,7 +21326,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
-	var AutoFocusMixin = __webpack_require__(146);
+	var AutoFocusMixin = __webpack_require__(147);
 	var DOMPropertyOperations = __webpack_require__(29);
 	var LinkedValueUtils = __webpack_require__(148);
 	var ReactBrowserComponentMixin = __webpack_require__(88);
@@ -21563,7 +21563,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
-	var AutoFocusMixin = __webpack_require__(146);
+	var AutoFocusMixin = __webpack_require__(147);
 	var LinkedValueUtils = __webpack_require__(148);
 	var ReactBrowserComponentMixin = __webpack_require__(88);
 	var ReactCompositeComponent = __webpack_require__(33);
@@ -21751,7 +21751,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
-	var AutoFocusMixin = __webpack_require__(146);
+	var AutoFocusMixin = __webpack_require__(147);
 	var DOMPropertyOperations = __webpack_require__(29);
 	var LinkedValueUtils = __webpack_require__(148);
 	var ReactBrowserComponentMixin = __webpack_require__(88);
@@ -21904,7 +21904,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ReactUpdates = __webpack_require__(18);
 
 	var assign = __webpack_require__(49);
-	var getEventTarget = __webpack_require__(130);
+	var getEventTarget = __webpack_require__(128);
 	var getUnboundedScrollPosition = __webpack_require__(150);
 
 	/**
@@ -22135,7 +22135,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var getActiveElement = __webpack_require__(151);
 	var isTextInputElement = __webpack_require__(138);
 	var keyOf = __webpack_require__(63);
-	var shallowEqual = __webpack_require__(53);
+	var shallowEqual = __webpack_require__(56);
 
 	var topLevelTypes = EventConstants.topLevelTypes;
 
@@ -23242,7 +23242,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Transaction = __webpack_require__(59);
 
 	var assign = __webpack_require__(49);
-	var emptyFunction = __webpack_require__(56);
+	var emptyFunction = __webpack_require__(55);
 
 	/**
 	 * Provides a `CallbackQueue` queue for collecting `onDOMReady` callbacks
@@ -24041,6 +24041,41 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
+	 * @providesModule getEventTarget
+	 * @typechecks static-only
+	 */
+
+	"use strict";
+
+	/**
+	 * Gets the target node from a native browser event by accounting for
+	 * inconsistencies in browser DOM APIs.
+	 *
+	 * @param {object} nativeEvent Native browser event.
+	 * @return {DOMEventTarget} Target node.
+	 */
+	function getEventTarget(nativeEvent) {
+	  var target = nativeEvent.target || nativeEvent.srcElement || window;
+	  // Safari may fire events on text nodes (Node.TEXT_NODE is 3).
+	  // @see http://www.quirksmode.org/js/events_properties.html
+	  return target.nodeType === 3 ? target.parentNode : target;
+	}
+
+	module.exports = getEventTarget;
+
+
+/***/ },
+/* 129 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright 2013-2014, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
 	 * @providesModule ReactEventEmitterMixin
 	 */
 
@@ -24084,7 +24119,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 129 */
+/* 130 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -24117,41 +24152,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	module.exports = ViewportMetrics;
-
-
-/***/ },
-/* 130 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright 2013-2014, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule getEventTarget
-	 * @typechecks static-only
-	 */
-
-	"use strict";
-
-	/**
-	 * Gets the target node from a native browser event by accounting for
-	 * inconsistencies in browser DOM APIs.
-	 *
-	 * @param {object} nativeEvent Native browser event.
-	 * @return {DOMEventTarget} Target node.
-	 */
-	function getEventTarget(nativeEvent) {
-	  var target = nativeEvent.target || nativeEvent.srcElement || window;
-	  // Safari may fire events on text nodes (Node.TEXT_NODE is 3).
-	  // @see http://www.quirksmode.org/js/events_properties.html
-	  return target.nodeType === 3 ? target.parentNode : target;
-	}
-
-	module.exports = getEventTarget;
 
 
 /***/ },
@@ -24882,7 +24882,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	"use strict";
 
 	var SyntheticUIEvent = __webpack_require__(157);
-	var ViewportMetrics = __webpack_require__(129);
+	var ViewportMetrics = __webpack_require__(130);
 
 	var getEventModifierState = __webpack_require__(167);
 
@@ -25405,37 +25405,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 146 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/**
-	 * Copyright 2013-2014, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule AutoFocusMixin
-	 * @typechecks static-only
-	 */
-
-	"use strict";
-
-	var focusNode = __webpack_require__(166);
-
-	var AutoFocusMixin = {
-	  componentDidMount: function() {
-	    if (this.props.autoFocus) {
-	      focusNode(this.getDOMNode());
-	    }
-	  }
-	};
-
-	module.exports = AutoFocusMixin;
-
-
-/***/ },
-/* 147 */
-/***/ function(module, exports, __webpack_require__) {
-
 	/* WEBPACK VAR INJECTION */(function(process) {/**
 	 * Copyright 2014, Facebook, Inc.
 	 * All rights reserved.
@@ -25484,6 +25453,37 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = LocalEventTrapMixin;
 
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(24)))
+
+/***/ },
+/* 147 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright 2013-2014, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule AutoFocusMixin
+	 * @typechecks static-only
+	 */
+
+	"use strict";
+
+	var focusNode = __webpack_require__(166);
+
+	var AutoFocusMixin = {
+	  componentDidMount: function() {
+	    if (this.props.autoFocus) {
+	      focusNode(this.getDOMNode());
+	    }
+	  }
+	};
+
+	module.exports = AutoFocusMixin;
+
 
 /***/ },
 /* 148 */
@@ -25667,7 +25667,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @typechecks
 	 */
 
-	var emptyFunction = __webpack_require__(56);
+	var emptyFunction = __webpack_require__(55);
 
 	/**
 	 * Upstream version of event listener. Does not take into account specific
@@ -26113,7 +26113,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var SyntheticEvent = __webpack_require__(71);
 
-	var getEventTarget = __webpack_require__(130);
+	var getEventTarget = __webpack_require__(128);
 
 	/**
 	 * @interface UIEvent
@@ -27198,7 +27198,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ExecutionEnvironment = __webpack_require__(52);
 
 	var createNodesFromMarkup = __webpack_require__(173);
-	var emptyFunction = __webpack_require__(56);
+	var emptyFunction = __webpack_require__(55);
 	var getMarkupWrap = __webpack_require__(174);
 	var invariant = __webpack_require__(60);
 
