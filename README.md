@@ -1,22 +1,10 @@
 # react-compact-multiselect
 
-Get the AMD module located at `react-compact-multiselect.js` and include it in your project.
+A "multi select" to select and filter on items in a check list. This component makes use of the [React-drop-button](https://github.com/tehandyb/react-drop-button). The multi select also includes UI improvements to the multi select including Select All, Deselect All, and the Done button. [Demo It](http://tehandyb.github.io/react-compact-multiselect)
 
-Here is a sample integration:
-
+JSX
 ```js
-require.config({
-  paths: {
-    'react': 'vendor/bower_components/react/react',
-    'ReactCompactMultiselect': 'react-compact-multiselect'
-  }
-});
 
-require(['react', 'ReactCompactMultiselect'], function(React, ReactCompactMultiselect) {
-
-  React.render(React.createElement(ReactCompactMultiselect), document.getElementById('widget-container'));
-
-});
 ```
 
 ## Development
