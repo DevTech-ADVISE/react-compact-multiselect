@@ -29,7 +29,7 @@ var DemoCompactMultiselect = React.createClass({
 	  			<ReactCompactMultiselect 
 	  				options={this.options}
 	  				initialValue={this.state.value}
-	  				label={"Numbers"} 
+	  				label={"Tv Shows"} 
             groupBy={"network"}
 	  				onChange={this.handleSelectionChange}
             layoutMode={ReactCompactMultiselect.ALIGN_CONTENT_SE} />
