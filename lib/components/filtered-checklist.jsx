@@ -19,7 +19,7 @@ module.exports = React.createClass({
     var filteredOptions = this.props.options.filter(function(opt){
         return (String(opt.label).toLowerCase().indexOf(filterValue) > -1); 
     });
-    this.setState({filteredOptions: filteredOptions, filterValue: filterValue});
+    this.setState({filteredOptions: filteredOptions, filterValue: String(event.target.value)});
   },
   clearFilter: function() {
     this.setState({filteredOptions: this.props.options, filterValue: ''});
@@ -50,7 +50,7 @@ module.exports = React.createClass({
                                     );
                                   }.bind(this));
       if(groupOptions.length > 0) {
-        var heading = (<div className="rcm-group-heading">{group}</div>)
+        var heading = (<li className="rcm-group-heading">{group}</li>)
         groupOptionElements.splice(0, 0, heading);
       }
       
@@ -76,12 +76,12 @@ module.exports = React.createClass({
                   onChange={this.handleFilterChange} 
                   placeholder="Type to filter..." 
                   value={this.state.filterValue}/>
-          </div>
-          <div className="clear-filter" onClick={this.clearFilter}>X</div>
-        
-        <div className="rcm-checklist-items">
-          {checklistItems}
+          <button className="clear-filter" name="clear-filter" onClick={this.clearFilter}>&#215;</button>
         </div>
+        
+        <ul className="rcm-checklist-items">
+          {checklistItems}
+        </ul>
       </div>
     );
   }
