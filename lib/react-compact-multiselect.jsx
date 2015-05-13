@@ -77,8 +77,8 @@ var ReactCompactMultiselect = React.createClass({
               onChange={this.handleCheckToggle}
               value={this.state.value} />
             <div className="rcm-menu">
-              <button className="select-all" name="select-all" onClick={this.selectAll}><span className="button-icon">&#x2713;</span>Select All</button>
-              <button className="deselect-all" name="deselect-all" onClick={this.deselectAll}><span className="button-icon">&#215;</span>Deselect All</button>
+              <button className="select-all" name="select-all" onClick={this.selectAll}><span>Select All</span></button>
+              <button className="deselect-all" name="deselect-all" onClick={this.deselectAll}><span>Deselect All</span></button>
               <button className="done-selecting-button" name="done" onClick={this.doneSelecting}>Done</button>
             </div>
           </DropBoxContent>
