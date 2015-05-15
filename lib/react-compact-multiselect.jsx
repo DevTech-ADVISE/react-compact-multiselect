@@ -19,6 +19,7 @@ var ReactCompactMultiselect = React.createClass({
     ALIGN_CONTENT_NW: ALIGN_CONTENT_NW
   },
   propTypes: {
+    label: React.PropTypes.string,
     options: React.PropTypes.array,
     initialValue: React.PropTypes.array,
     layoutMode: React.PropTypes.string,
@@ -63,13 +64,17 @@ var ReactCompactMultiselect = React.createClass({
     this.refs.DropButton.toggleDropBox();
   },
   render: function() {
-    var selectedCount = (<span className="rcm-selected-count">{this.state.value.length}</span>);
+    var selectedCount, label;
+    selectedCount = (<span className="rcm-selected-count">{this.state.value.length}</span>);
     if(this.state.value.length === 0)
       selectedCount = "";
+
+    label = (<span className="rcm-label">{this.props.label}</span>);
+
     return (
       <div className="react-compact-multiselect">
         <DropButton layoutMode={this.props.layoutMode} ref="DropButton">
-          <DropTrigger>{this.props.label} {selectedCount} </DropTrigger>
+          <DropTrigger>{label} {selectedCount} </DropTrigger>
           <DropBoxContent>
             <FilteredChecklist 
               options={this.props.options}

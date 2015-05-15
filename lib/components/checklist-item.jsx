@@ -1,7 +1,7 @@
 var React = require("react/addons");
 
 module.exports = React.createClass({
-  handleCheckToggle: function(event) {
+  handleCheckToggle: function() {
     this.props.onChange(this.props.value);
   },
   render: function() {
