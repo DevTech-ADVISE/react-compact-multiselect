@@ -23,10 +23,11 @@ module.exports = React.createClass({
     this.setState({filteredOptions: this.props.options, filterValue: ''});
   },
   getItemsChecked: function() {
-
+    var count = -1;
     return this.state.filteredOptions.map(function(opt){
+        count ++;
         var checked = this.isChecked(opt);
-        return (<ChecklistItem label={opt.label} checked={checked} value={opt.value} onChange={this.props.onChange} />);
+        return (<ChecklistItem count={count} label={opt.label} checked={checked} value={opt.value} onChange={this.props.onChange} />);
     }.bind(this));
     
   },

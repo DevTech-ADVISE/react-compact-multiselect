@@ -77,14 +77,15 @@ var ReactCompactMultiselect = React.createClass({
           <DropTrigger>{label} {selectedCount} </DropTrigger>
           <DropBoxContent>
             <FilteredChecklist 
+              ref="FilteredCheckList"
               options={this.props.options}
               groupBy={this.props.groupBy}
               onChange={this.handleCheckToggle}
               value={this.state.value} />
             <div className="rcm-menu">
-              <button className="select-all" name="select-all" onClick={this.selectAll}><span>Select All</span></button>
-              <button className="deselect-all" name="deselect-all" onClick={this.deselectAll}><span>Deselect All</span></button>
-              <button className="done-selecting-button" name="done" onClick={this.doneSelecting}>Done</button>
+              <button ref="rcm-select-all" className="select-all" name="select-all" onClick={this.selectAll}><span>Select All</span></button>
+              <button ref="rcm-deselect-all" className="deselect-all" name="deselect-all" onClick={this.deselectAll}><span>Deselect All</span></button>
+              <button ref="rcm-done" name="done" onClick={this.doneSelecting}>Done</button>
             </div>
           </DropBoxContent>
         </DropButton>

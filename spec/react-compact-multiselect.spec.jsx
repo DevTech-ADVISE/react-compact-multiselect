@@ -9,7 +9,9 @@ describe("ReactCompactMultiselect", function() {
   var onChangeTestFunc = function(selection){onChangeValues = selection;};
   var testLabel = "TV Shows";
   var labelClassName = 'rcm-label';
+  // var testDefaultValue = [];
   var testDefaultValue = testData.TVShows.slice(0, 4).map(function(option){return option.value;}); //array of values 0-3, not including 4
+  
   beforeEach(function() {
 
     component = TestUtils.renderIntoDocument(
@@ -33,6 +35,80 @@ describe("ReactCompactMultiselect", function() {
   it("should display a badge indicating number of selected items", function(){
   	var selectedBadgeClassName = 'rcm-selected-count';
   	expect(TestUtils.findRenderedDOMComponentWithClass(component, selectedBadgeClassName).getDOMNode().innerHTML).toEqual(testDefaultValue.length.toString());
+  });
+
+  describe("filtering and selected items", function() {
+  	beforeEach(function() {
+  		//MUST OPEN DROP BOX FIRST
+  		TestUtils.Simulate.click(TestUtils.findRenderedDOMComponentWithClass(component,'rdb-button').getDOMNode());
+  	});
+
+	  it("should display unselected options as unchecked", function() {
+	  	var unselectedOptions = testData.TVShows.filter(function(show) {
+	  		return testDefaultValue.indexOf(show.value) === -1;
+	  	});
+
+	  	unselectedOptions.forEach(function(opt) {
+	  		var renderedItems = TestUtils.scryRenderedDOMComponentsWithClass(component, 'rcm-checklist-item');
+	  	
+	  		var unselectedCheckBox = renderedItems.filter(function(item) {
+	  			return TestUtils.findRenderedDOMComponentWithTag(item, 'input').getDOMNode().id.indexOf(opt.value + "-" + opt.label) !== -1;
+	  		})[0];
+
+	  		expect(TestUtils.findRenderedDOMComponentWithTag(unselectedCheckBox, 'input').getDOMNode().checked).toBe(false);
+	  	});
+  	});
+
+  	it("should display selected options as checked", function() {
+  		var selectedOptions = testData.TVShows.filter(function(show) {
+	  		return testDefaultValue.indexOf(show.value) !== -1;
+	  	});
+
+	  	selectedOptions.forEach(function(opt) {
+	  		var renderedItems = TestUtils.scryRenderedDOMComponentsWithClass(component, 'rcm-checklist-item');
+
+	  		var selectedCheckBox = renderedItems.filter(function(item) {
+	  			return TestUtils.findRenderedDOMComponentWithTag(item, 'input').getDOMNode().id.indexOf(opt.value + "-" + opt.label) !== -1;
+	  		})[0];
+
+				expect(TestUtils.findRenderedDOMComponentWithTag(selectedCheckBox, 'input').getDOMNode().checked).toBe(true);
+	  	});
+  	});
+
+  	//doesn't work yet
+  	// it("should filter the rendered items based on the filter input", function() {
+  	// 	//set the state of the input to "ch", which should render only items containing "ch"
+  	// 	//Chappelle's show and Charmed 
+  	// 	component.refs.FilteredCheckList.setState({filterValue: "ch"}, function() {
+
+  	// 		var renderedItems = TestUtils.scryRenderedDOMComponentsWithClass(component, 'rcm-checklist-item');
+	  // 		expect(renderedItems.length).toBe(2);
+	  // 		renderedItems.forEach(function(item) {
+	  // 			expect(TestUtils.findRenderedDOMComponentWithTag(item, 'input').getDOMNode().id.indexOf("ch")).toNotBe(-1);
+	  // 		});
+  	// 	});
+  	// });
+
+  	it("should select all options when Select all is clicked", function() {
+  		TestUtils.Simulate.click(component.refs["rcm-select-all"].getDOMNode());
+  		var renderedItems = TestUtils.scryRenderedDOMComponentsWithClass(component, 'rcm-checklist-item');
+  		renderedItems.forEach(function(item) {
+  			expect(TestUtils.findRenderedDOMComponentWithTag(item, 'input').getDOMNode().checked).toBe(true);
+  		});
+  	});
+
+  	it("should deselect all options when Deselect all is clicked", function() {
+  		TestUtils.Simulate.click(component.refs["rcm-deselect-all"].getDOMNode());
+  		var renderedItems = TestUtils.scryRenderedDOMComponentsWithClass(component, 'rcm-checklist-item');
+  		renderedItems.forEach(function(item) {
+  			expect(TestUtils.findRenderedDOMComponentWithTag(item, 'input').getDOMNode().checked).toBe(false);
+  		});
+  	});
+
+  	it("should close the drop box when Done is clicked", function() {
+  		TestUtils.Simulate.click(component.refs["rcm-done"].getDOMNode());
+  		expect(component.refs.DropButton.state.open).toBe(false);
+  	});
   });
 
 
