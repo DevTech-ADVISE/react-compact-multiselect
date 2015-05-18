@@ -9,6 +9,7 @@ describe("ReactCompactMultiselect", function() {
   var onChangeTestFunc = function(selection){onChangeValues = selection;};
   var testLabel = "TV Shows";
   var labelClassName = 'rcm-label';
+  var selectedBadgeClassName = 'rcm-selected-count';
   // var testDefaultValue = [];
   var testDefaultValue = testData.TVShows.slice(0, 4).map(function(option){return option.value;}); //array of values 0-3, not including 4
   
@@ -33,8 +34,13 @@ describe("ReactCompactMultiselect", function() {
   });
 
   it("should display a badge indicating number of selected items", function(){
-  	var selectedBadgeClassName = 'rcm-selected-count';
+  	
   	expect(TestUtils.findRenderedDOMComponentWithClass(component, selectedBadgeClassName).getDOMNode().innerHTML).toEqual(testDefaultValue.length.toString());
+  });
+
+  it("should not display a badge if there are no selected items", function() {
+  	component.setState({value: []});
+  	expect(component.getDOMNode().getElementsByClassName(selectedBadgeClassName)[0]).toBeUndefined();
   });
 
   describe("filtering and selected items", function() {
@@ -75,19 +81,34 @@ describe("ReactCompactMultiselect", function() {
 	  	});
   	});
 
-  	//doesn't work yet
-  	// it("should filter the rendered items based on the filter input", function() {
-  	// 	//set the state of the input to "ch", which should render only items containing "ch"
-  	// 	//Chappelle's show and Charmed 
-  	// 	component.refs.FilteredCheckList.setState({filterValue: "ch"}, function() {
+  	it("should filter the rendered items based on the filter input", function() {
+  		//set the state of the input to "ch", which should render only items containing "ch"
+  		//Chappelle's show and Charmed 
+  		var textInput = TestUtils.findRenderedDOMComponentWithClass(component, "rcm-filter-box").getDOMNode().getElementsByTagName('input')[0];
+  		TestUtils.Simulate.change(textInput, {target: {value: "ch"}});
 
-  	// 		var renderedItems = TestUtils.scryRenderedDOMComponentsWithClass(component, 'rcm-checklist-item');
-	  // 		expect(renderedItems.length).toBe(2);
-	  // 		renderedItems.forEach(function(item) {
-	  // 			expect(TestUtils.findRenderedDOMComponentWithTag(item, 'input').getDOMNode().id.indexOf("ch")).toNotBe(-1);
-	  // 		});
-  	// 	});
-  	// });
+  		var renderedItems = TestUtils.scryRenderedDOMComponentsWithClass(component, 'rcm-checklist-item');
+
+  		expect(renderedItems.length).toBe(2);
+  		renderedItems.forEach(function(item) {
+  			expect(TestUtils.findRenderedDOMComponentWithTag(item, 'input').getDOMNode().id.toLowerCase().indexOf("ch")).not.toBe(-1);
+  		});
+
+  	});
+
+  	it("should clear the filter input and unfilter the select list when the X button is clicked", function() {
+  		var textInput = TestUtils.findRenderedDOMComponentWithClass(component, "rcm-filter-box").getDOMNode().getElementsByTagName('input')[0];
+  		TestUtils.Simulate.change(textInput, {target: {value: "remove me"}});
+  		var renderedItemsBefore = TestUtils.scryRenderedDOMComponentsWithClass(component, 'rcm-checklist-item');
+  		expect(renderedItemsBefore.length).toBe(0);
+
+  		var xButton = TestUtils.findRenderedDOMComponentWithClass(component, 'clear-filter').getDOMNode();
+  		TestUtils.Simulate.click(xButton);
+  		expect(component.refs.FilteredCheckList.state.filterValue).toBe("");
+
+  		var renderedItemsAfter = TestUtils.scryRenderedDOMComponentsWithClass(component, 'rcm-checklist-item');
+  		expect(renderedItemsAfter.length).toBe(testData.TVShows.length);
+  	});
 
   	it("should select all options when Select all is clicked", function() {
   		TestUtils.Simulate.click(component.refs["rcm-select-all"].getDOMNode());
@@ -110,6 +131,5 @@ describe("ReactCompactMultiselect", function() {
   		expect(component.refs.DropButton.state.open).toBe(false);
   	});
   });
-
 
 });
