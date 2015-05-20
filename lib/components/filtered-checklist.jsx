@@ -70,17 +70,22 @@ module.exports = React.createClass({
 
     return (
       <div className="rcm-filtered-checklist">
-        <div className="rcm-filter-box">
-          <input  type="text" 
-                  onChange={this.handleFilterChange} 
-                  placeholder="Type to filter..." 
-                  value={this.state.filterValue}/>
-          <button className="clear-filter" name="clear-filter" onClick={this.clearFilter}>&#215;</button>
+        <div className="header">
+          <div className="rcm-filter-box">
+            <input  type="text" 
+                    onChange={this.handleFilterChange} 
+                    placeholder="Type to filter..." 
+                    value={this.state.filterValue}/>
+            <button className="clear-filter" name="clear-filter" onClick={this.clearFilter}>&#215;</button>
+          </div>
         </div>
-        
-        <ul className="rcm-checklist-items">
-          {checklistItems}
-        </ul>
+        <div className="content">
+          <div className="overflow-y">
+            <ul className="rcm-checklist-items">
+              {checklistItems}
+            </ul>
+          </div>
+        </div>
       </div>
     );
   }

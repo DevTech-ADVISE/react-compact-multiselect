@@ -12,10 +12,43 @@
 .clearfix:before, .clearfix:after {content: " ";display: table;}
 .clearfix:after {clear: both;}
 
+$dropbox-height: 60vh; //height is always required, either %, px, or vh (% will be based on parent so 1200% would be 12x the height of the button)
+// Note: min-height may additional be defined
+// be aware if you use something other than auto for min-height $dropbox-minheight
+// will be need to be large enough to include the filter input and menu button
+//$checklist-minheight: auto;
+//$dropbox-minheight: auto;
+$checklist-minheight: 180px; 
+$dropbox-minheight: $checklist-minheight + (16 * 7.8); //assumes em = 16px
+
+
+
 .react-compact-multiselect {
 	@extend .font;
 	display: inline-block;
 	position: relative;
+
+	.fluid-layout {
+		width:100%;
+		height:100%;
+		display: table;
+		& > div.rcm-filtered-checklist {
+			display: table;
+			height: 100%;
+			width: 100%;
+
+			& > div.header {display: table-header-group;}
+			& > div.content {display: table-row;}
+		}
+		& > div.footer {display: table-footer-group;}
+		.overflow-y {
+			width: 100%;
+			height: 100%;
+			overflow-y: auto;
+
+			min-height:$checklist-minheight; //works in conjunction with .rdb-drop-box height style below
+		}
+	}
 
 	.rcm-selected-count {
 		display: inline-block;
@@ -49,7 +82,17 @@
 		}
 	}
 
-	.react-drop-button .rdb-drop-box {padding:0;min-width:186px;background-color: #fff;}
+	.react-drop-button {
+		.rdb-drop-box {
+			padding:0;
+			min-width:186px;
+			background-color: #fff;
+		}
+		.drop-box-content {
+			height:$dropbox-height; //height is required
+			min-height: $dropbox-minheight; //see notes above
+		}
+	}
 	.rcm-filtered-checklist {}
 	.rcm-filter-box { //child of .rcm-filtered-checklist
 		position: relative;
@@ -119,7 +162,7 @@
 		margin: 0;
 		padding: 0;
 		overflow-y: auto;
-		max-height: 300px;
+		min-height: 100%;
 
 		.rcm-checklist-item {
 			@extend .user-select-none;
