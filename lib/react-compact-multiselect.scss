@@ -19,7 +19,7 @@ $dropbox-height: 60vh; //height is always required, either %, px, or vh (% will 
 //$checklist-minheight: auto;
 //$dropbox-minheight: auto;
 $checklist-minheight: 180px; 
-$dropbox-minheight: $checklist-minheight + (16 * 7.8); //assumes em = 16px
+$dropbox-minheight: $checklist-minheight + (16 * 8.5); //assumes em = 16px, 8.3 worked in testing but I wanted to pad this slightly
 
 
 
@@ -63,12 +63,12 @@ $dropbox-minheight: $checklist-minheight + (16 * 7.8); //assumes em = 16px
 		&:before {
 			position: absolute;
 			content: " ";
-			width: 124%;
-			height: 124%;
+			width: 120%;
+			height: 100%;
 			background-color: #fff;
 			z-index: -1;
 			padding-right: 1em;
-			top: -12%;
+			top: -2%;
 			left: -18%;
 			border-radius: 1em;
 			box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
@@ -94,6 +94,7 @@ $dropbox-minheight: $checklist-minheight + (16 * 7.8); //assumes em = 16px
 		}
 	}
 	.rcm-filtered-checklist {}
+
 	.rcm-filter-box { //child of .rcm-filtered-checklist
 		position: relative;
 		padding: .4em;
@@ -105,41 +106,46 @@ $dropbox-minheight: $checklist-minheight + (16 * 7.8); //assumes em = 16px
 			padding: .08em .2em .1em .2em;
 			font-size: 1em;
 			font-weight: 100;
-			line-height: 1;
+			line-height: 1.6em;
 			box-sizing:border-box;
 
 			&::-webkit-input-placeholder {
 			   font-size:.8em;
-			   line-height: 1.4em;
+			   line-height: 2.1em;
+			   text-indent: .2em;
 			   font-weight: 100;
 			   font-style: italic;
 			}
 
 			&::-moz-placeholder {  /* Firefox 19+ */
 			   font-size:.8em;
-			   line-height: 1.4em;
+			   line-height: 2.1em;
+			   text-indent: .2em;
 			   font-weight: 100;
 			   font-style: italic;
 			}
 
 			&:-ms-input-placeholder {  
 			   font-size:.8em;
-			   line-height: 1.4em;
+			   line-height: 2.1em;
+			   text-indent: .2em;
 			   font-weight: 100;
 			   font-style: italic;
 			}
 		}
+
 		.clear-filter {
 			position: absolute;
+			box-sizing: border-box;
 			cursor: pointer;
-			top: .5em;
-			right: .5em;
-			padding: .0em .3em .2em;
+			top: .4em;
+			right: .4em;
+			padding: 0 .5em .1em;
 			border: 0;
 			background: transparent;
 			font-size: 1em;
 			line-height: 1;
-			height: 1.3em;
+			height: 2em;
 		}
 
 	}
@@ -204,7 +210,7 @@ $dropbox-minheight: $checklist-minheight + (16 * 7.8); //assumes em = 16px
 
 			span { //button text
 				font-size:.7em;
-				line-height: 1.7em;
+				line-height: 2.2em;
 
 				&:before {
 					content: "\2713 ";
@@ -252,6 +258,7 @@ $dropbox-minheight: $checklist-minheight + (16 * 7.8); //assumes em = 16px
 			width: 100%;
 			margin-top: .4em;
 			padding: .3em .4em .4em;
+			line-height: 1.4em;
 		}
 	}
 }
