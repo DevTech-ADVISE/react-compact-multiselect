@@ -76,16 +76,20 @@ var ReactCompactMultiselect = React.createClass({
         <DropButton layoutMode={this.props.layoutMode} ref="DropButton">
           <DropTrigger>{label} {selectedCount} </DropTrigger>
           <DropBoxContent>
-            <FilteredChecklist 
-              ref="FilteredCheckList"
-              options={this.props.options}
-              groupBy={this.props.groupBy}
-              onChange={this.handleCheckToggle}
-              value={this.state.value} />
-            <div className="rcm-menu">
-              <button ref="rcm-select-all" className="select-all" name="select-all" onClick={this.selectAll}><span>Select All</span></button>
-              <button ref="rcm-deselect-all" className="deselect-all" name="deselect-all" onClick={this.deselectAll}><span>Deselect All</span></button>
-              <button ref="rcm-done" className="done-selecting-button" name="done" onClick={this.doneSelecting}>Done</button>
+            <div className="fluid-layout">
+              <FilteredChecklist 
+                ref="FilteredCheckList"
+                options={this.props.options}
+                groupBy={this.props.groupBy}
+                onChange={this.handleCheckToggle}
+                value={this.state.value} />
+              <div className="footer">
+                <div className="rcm-menu">
+                  <button ref="rcm-select-all" className="select-all" name="select-all" onClick={this.selectAll}><span>Select All</span></button>
+                  <button ref="rcm-deselect-all" className="deselect-all" name="deselect-all" onClick={this.deselectAll}><span>Deselect All</span></button>
+                  <button ref="rcm-done" className="done-selecting-button" name="done" onClick={this.doneSelecting}>Done</button>
+                </div>
+              </div>
             </div>
           </DropBoxContent>
         </DropButton>
