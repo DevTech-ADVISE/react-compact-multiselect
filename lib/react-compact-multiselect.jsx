@@ -30,7 +30,7 @@ var ReactCompactMultiselect = React.createClass({
     return {layoutMode: ALIGN_CONTENT_SE};
   },
   getInitialState: function() {
-    return {value: []};
+    return {value: [], filterValue: ''};
   },
   componentWillMount: function() {
     this.setState({value: this.props.initialValue});
@@ -59,6 +59,9 @@ var ReactCompactMultiselect = React.createClass({
     this.props.onChange(newValueState);
     this.setState({value: newValueState});
   },
+  filterValueChange: function(inputValue, callBack) {
+    this.setState({filterValue: inputValue}, callBack);
+  },
   doneSelecting: function() {
     //Call internal DropButton function to close the drop down
     this.refs.DropButton.toggleDropBox();
@@ -82,7 +85,9 @@ var ReactCompactMultiselect = React.createClass({
                 options={this.props.options}
                 groupBy={this.props.groupBy}
                 onChange={this.handleCheckToggle}
-                value={this.state.value} />
+                onFilterValueChange={this.filterValueChange}
+                value={this.state.value}
+                filterValue={this.state.filterValue} />
               <div className="footer">
                 <div className="rcm-menu">
                   <button ref="rcm-select-all" className="select-all" name="select-all" onClick={this.selectAll}><span>Select All</span></button>
