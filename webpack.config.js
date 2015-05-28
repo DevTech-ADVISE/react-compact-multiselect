@@ -5,7 +5,7 @@ var path = require('path');
 module.exports = {
   context: path.join(__dirname),
   entry: './index.js',
-
+  devtool: 'source-maps',
   output: {
     path: path.join(__dirname),
     filename: 'react-compact-multiselect.js',
