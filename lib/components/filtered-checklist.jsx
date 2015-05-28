@@ -5,22 +5,34 @@ var Lazy = require('lazy.js');
 module.exports = React.createClass({
   propTypes: {
     value: React.PropTypes.array,
+    filterValue: React.PropTypes.string,
     options: React.PropTypes.array,
     groupBy: React.PropTypes.string,
     onChange: React.PropTypes.func,
+    onFilterValueChange: React.PropTypes.func,
   },
   getInitialState: function() {
-    return {filteredOptions: this.props.options, filterValue: ''};
+    return {filteredOptions: this.getFilteredOptions()};
   },
   handleFilterChange: function(event) {
-    var filterValue = String(event.target.value).toLowerCase();
+    this.props.onFilterValueChange(event.target.value, function() {
+      var filterValue = String(this.props.filterValue).toLowerCase();
+      this.setState({filteredOptions: this.getFilteredOptions()});
+    }.bind(this));
+    
+  },
+  clearFilter: function() {
+    this.props.onFilterValueChange('', function() {
+      this.setState({filteredOptions: this.props.options});
+    }.bind(this));
+    
+  },
+  getFilteredOptions: function() {
+    var filterValue = String(this.props.filterValue).toLowerCase();
     var filteredOptions = this.props.options.filter(function(opt){
         return (String(opt.label).toLowerCase().indexOf(filterValue) > -1); 
     });
-    this.setState({filteredOptions: filteredOptions, filterValue: String(event.target.value)});
-  },
-  clearFilter: function() {
-    this.setState({filteredOptions: this.props.options, filterValue: ''});
+    return filteredOptions;
   },
   getItemsChecked: function() {
     var count = -1;
@@ -75,7 +87,7 @@ module.exports = React.createClass({
             <input  type="text" 
                     onChange={this.handleFilterChange} 
                     placeholder="Type to filter..." 
-                    value={this.state.filterValue}/>
+                    value={this.props.filterValue}/>
             <button className="clear-filter" name="clear-filter" onClick={this.clearFilter}>&#215;</button>
           </div>
         </div>
