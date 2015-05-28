@@ -19,6 +19,7 @@ var ReactCompactMultiselect = React.createClass({
     ALIGN_CONTENT_NW: ALIGN_CONTENT_NW
   },
   propTypes: {
+    label: React.PropTypes.string,
     options: React.PropTypes.array,
     initialValue: React.PropTypes.array,
     layoutMode: React.PropTypes.string,
@@ -63,23 +64,32 @@ var ReactCompactMultiselect = React.createClass({
     this.refs.DropButton.toggleDropBox();
   },
   render: function() {
-    var selectedCount = (<span className="rcm-selected-count">{this.state.value.length}</span>);
+    var selectedCount, label;
+    selectedCount = (<span className="rcm-selected-count">{this.state.value.length}</span>);
     if(this.state.value.length === 0)
       selectedCount = "";
+
+    label = (<span className="rcm-label">{this.props.label}</span>);
+
     return (
       <div className="react-compact-multiselect">
         <DropButton layoutMode={this.props.layoutMode} ref="DropButton">
-          <DropTrigger>{this.props.label} {selectedCount} </DropTrigger>
+          <DropTrigger>{label} {selectedCount} </DropTrigger>
           <DropBoxContent>
-            <FilteredChecklist 
-              options={this.props.options}
-              groupBy={this.props.groupBy}
-              onChange={this.handleCheckToggle}
-              value={this.state.value} />
-            <div className="rcm-menu">
-              <button className="select-all" name="select-all" onClick={this.selectAll}><span className="button-icon">&#x2713;</span>Select All</button>
-              <button className="deselect-all" name="deselect-all" onClick={this.deselectAll}><span className="button-icon">&#215;</span>Deselect All</button>
-              <button className="done-selecting-button" name="done" onClick={this.doneSelecting}>Done</button>
+            <div className="fluid-layout">
+              <FilteredChecklist 
+                ref="FilteredCheckList"
+                options={this.props.options}
+                groupBy={this.props.groupBy}
+                onChange={this.handleCheckToggle}
+                value={this.state.value} />
+              <div className="footer">
+                <div className="rcm-menu">
+                  <button ref="rcm-select-all" className="select-all" name="select-all" onClick={this.selectAll}><span>Select All</span></button>
+                  <button ref="rcm-deselect-all" className="deselect-all" name="deselect-all" onClick={this.deselectAll}><span>Deselect All</span></button>
+                  <button ref="rcm-done" className="done-selecting-button" name="done" onClick={this.doneSelecting}>Done</button>
+                </div>
+              </div>
             </div>
           </DropBoxContent>
         </DropButton>

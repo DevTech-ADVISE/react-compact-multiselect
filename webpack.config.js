@@ -16,7 +16,7 @@ module.exports = {
   // externals: {
   //  'react': 'var React'
   // },
-
+  devtool: 'source-map',
   module: {
     loaders: [
       {
