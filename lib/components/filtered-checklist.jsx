@@ -16,7 +16,6 @@ module.exports = React.createClass({
   },
   handleFilterChange: function(event) {
     this.props.onFilterValueChange(event.target.value, function() {
-      var filterValue = String(this.props.filterValue).toLowerCase();
       this.setState({filteredOptions: this.getFilteredOptions()});
     }.bind(this));
     
