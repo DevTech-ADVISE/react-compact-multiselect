@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "lazy.js": "^0.4.0",
-    "react": "^0.12.2",
+    "react": "~0.13.3",
     "react-drop-button": "git+https://github.com/BI/react-drop-button",
     "js-test-data": "git+https://github.com/BI/js-test-data"
   }
