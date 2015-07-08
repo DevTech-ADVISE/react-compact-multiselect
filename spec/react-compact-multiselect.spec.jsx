@@ -104,7 +104,7 @@ describe("ReactCompactMultiselect", function() {
 
   		var xButton = TestUtils.findRenderedDOMComponentWithClass(component, 'clear-filter').getDOMNode();
   		TestUtils.Simulate.click(xButton);
-  		expect(component.refs.FilteredCheckList.state.filterValue).toBe("");
+  		expect(component.refs.FilteredCheckList.props.filterValue).toBe("");
 
   		var renderedItemsAfter = TestUtils.scryRenderedDOMComponentsWithClass(component, 'rcm-checklist-item');
   		expect(renderedItemsAfter.length).toBe(testData.TVShows.length);
