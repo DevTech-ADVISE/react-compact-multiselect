@@ -1,4 +1,4 @@
-# react-compact-multiselect
+# react-compact-multiselect [![Build Status](https://travis-ci.org/BI/react-compact-multiselect.png)](https://travis-ci.org/BI/react-compact-multiselect)
 
 A "multi select" to select and filter on items in a check list. This component makes use of the [React-drop-button](https://github.com/BI/react-drop-button). The multi select also includes UI improvements to the multi select including Select All, Deselect All, and the Done button. [Demo It](http://BI.github.io/react-compact-multiselect)
 
