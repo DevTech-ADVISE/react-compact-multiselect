@@ -66,6 +66,9 @@ var ReactCompactMultiselect = React.createClass({
     //Call internal DropButton function to close the drop down
     this.refs.DropButton.toggleDropBox();
   },
+  focusChecklist: function() {
+    React.findDOMNode(this.refs.checklist).focus();
+  },
   render: function() {
     var selectedCount, label;
     selectedCount = (<span className="rcm-selected-count">{this.state.value.length}</span>);
@@ -76,12 +79,12 @@ var ReactCompactMultiselect = React.createClass({
 
     return (
       <div className="react-compact-multiselect">
-        <DropButton layoutMode={this.props.layoutMode} ref="DropButton">
+        <DropButton layoutMode={this.props.layoutMode} onOpen={this.focusChecklist} ref="DropButton">
           <DropTrigger>{label} {selectedCount} </DropTrigger>
           <DropBoxContent>
             <div className="fluid-layout">
               <FilteredChecklist 
-                ref="FilteredCheckList"
+                ref="checklist"
                 options={this.props.options}
                 groupBy={this.props.groupBy}
                 onChange={this.handleCheckToggle}
