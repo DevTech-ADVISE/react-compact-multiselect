@@ -2,7 +2,7 @@ var React = require("react/addons");
 var ChecklistItem = require("./checklist-item.jsx");
 var Lazy = require('lazy.js');
 
-module.exports = React.createClass({
+var FilteredChecklist = React.createClass({
   propTypes: {
     value: React.PropTypes.array,
     filterValue: React.PropTypes.string,
@@ -76,14 +76,18 @@ module.exports = React.createClass({
   isChecked: function(option) {
     return (this.props.value.indexOf(option.value) !== -1);
   },
+  onFocus: function() {
+    React.findDOMNode(this.refs.input).focus();
+  },
   render: function() {
     var checklistItems = (this.props.groupBy) ? this.getItemsCheckedGroupBy() : this.getItemsChecked();
 
     return (
-      <div className="rcm-filtered-checklist">
+      <div className="rcm-filtered-checklist" tabIndex="0" onFocus={this.onFocus}>
         <div className="header">
           <div className="rcm-filter-box">
             <input  type="text" 
+                    ref="input"
                     onChange={this.handleFilterChange} 
                     placeholder="Type to filter..." 
                     value={this.props.filterValue}/>
@@ -101,3 +105,5 @@ module.exports = React.createClass({
     );
   }
 });
+
+module.exports = FilteredChecklist;
