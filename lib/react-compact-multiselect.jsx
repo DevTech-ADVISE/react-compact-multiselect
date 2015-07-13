@@ -67,7 +67,7 @@ var ReactCompactMultiselect = React.createClass({
     this.refs.DropButton.toggleDropBox();
   },
   focusChecklist: function() {
-    React.findDOMNode(this.refs.checklist).focus();
+    React.findDOMNode(this.refs.FilteredCheckList).focus();
   },
   render: function() {
     var selectedCount, label;
@@ -84,7 +84,7 @@ var ReactCompactMultiselect = React.createClass({
           <DropBoxContent>
             <div className="fluid-layout">
               <FilteredChecklist 
-                ref="checklist"
+                ref="FilteredCheckList"
                 options={this.props.options}
                 groupBy={this.props.groupBy}
                 onChange={this.handleCheckToggle}
