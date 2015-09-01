@@ -79,7 +79,7 @@ var ReactCompactMultiselect = React.createClass({
 
     return (
       <div className="react-compact-multiselect">
-        <DropButton layoutMode={this.props.layoutMode} onOpen={this.focusChecklist} ref="DropButton">
+        <DropButton layoutMode={this.props.layoutMode} onOpen={this.focusChecklist} ref="DropButton" label={label}>
           <DropTrigger>{label} {selectedCount} </DropTrigger>
           <DropBoxContent>
             <div className="fluid-layout">
