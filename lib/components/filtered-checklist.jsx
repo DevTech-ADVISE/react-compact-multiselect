@@ -39,7 +39,7 @@ var FilteredChecklist = React.createClass({
         count ++;
         var checked = this.isChecked(opt);
         return (<ChecklistItem count={count} label={opt.label} checked={checked} value={opt.value} onChange={this.props.onChange} />);
-    }.bind(this));
+    }, this);
     
   },
   getItemsCheckedGroupBy: function(sortGroupsDescending) {
@@ -49,7 +49,7 @@ var FilteredChecklist = React.createClass({
                         .sort(null, sortGroupsDescending)
                         .toArray();
     var checkListItems = uniqueGroups.map(function(group) {
-      var groupOptions = this.state.filteredOptions.filter(function(opt) {return opt[this.props.groupBy] === group;}.bind(this));
+      var groupOptions = this.state.filteredOptions.filter(function(opt) {return opt[this.props.groupBy] === group;}, this);
       var groupOptionElements= Lazy(groupOptions)
                                  .sortBy(this.itemSortBy("label"))
                                  .toArray()
@@ -58,7 +58,7 @@ var FilteredChecklist = React.createClass({
                                     return (
                                       <ChecklistItem label={opt.label} checked={checked} value={opt.value} onChange={this.props.onChange} />
                                     );
-                                  }.bind(this));
+                                  }, this);
       if(groupOptions.length > 0) {
         var heading = (<li className="rcm-group-heading">{group}</li>);
         groupOptionElements.splice(0, 0, heading);
@@ -66,7 +66,7 @@ var FilteredChecklist = React.createClass({
       
 
       return groupOptionElements;
-    }.bind(this));
+    }, this);
 
     return checkListItems;
   },
