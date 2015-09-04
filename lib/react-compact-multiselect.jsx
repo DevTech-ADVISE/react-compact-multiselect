@@ -59,7 +59,17 @@ var ReactCompactMultiselect = React.createClass({
     this.fireValueChange(currentValues.concat(allValues));
   },
   deselectAll: function() {
-    this.fireValueChange([]);
+    var filterValue = String(this.state.filterValue).toLowerCase();
+    var currentValues = this.state.value;
+
+    var filteredValues = this.props.options.filter(function(opt) {
+        return (String(opt.label).toLowerCase().indexOf(filterValue) > -1); 
+    })
+    .map(function(opt) {return opt.value;});
+
+    currentValues = currentValues.filter(function(opt) { return filteredValues.indexOf(opt) === -1});
+
+    this.fireValueChange(currentValues);
   },
   fireValueChange: function(newValueState) {
     //value can change from the check boxes, or from the select all type buttons
