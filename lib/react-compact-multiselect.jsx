@@ -48,12 +48,15 @@ var ReactCompactMultiselect = React.createClass({
   },
   selectAll: function() {
     var filterValue = String(this.state.filterValue).toLowerCase();
+    var currentValues = this.state.value;
+
     var allValues = this.props.options.filter(function(opt) {
         return (String(opt.label).toLowerCase().indexOf(filterValue) > -1); 
     })
-    .map(function(opt) {return opt.value;});
+    .map(function(opt) {return opt.value;})
+    .filter(function(opt) { return currentValues.indexOf(opt) === -1; });
 
-    this.fireValueChange(this.state.value.concat(allValues));
+    this.fireValueChange(currentValues.concat(allValues));
   },
   deselectAll: function() {
     this.fireValueChange([]);
