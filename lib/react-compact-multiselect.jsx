@@ -67,7 +67,7 @@ var ReactCompactMultiselect = React.createClass({
     })
     .map(function(opt) {return opt.value;});
 
-    currentValues = currentValues.filter(function(opt) { return filteredValues.indexOf(opt) === -1});
+    currentValues = currentValues.filter(function(opt) { return filteredValues.indexOf(opt) === -1; });
 
     this.fireValueChange(currentValues);
   },
