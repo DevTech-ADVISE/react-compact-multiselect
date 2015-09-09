@@ -37,16 +37,21 @@ $dropbox-minheight: $checklist-minheight + (16 * 8.5); //assumes em = 16px, 8.3 
 			height: 100%;
 			width: 100%;
 
-			& > div.header {display: table-header-group;}
-			& > div.content {display: table-row;}
+			& > div.header {display: table-row;height:1px;}
+			& > div.content {
+				overflow:hidden!important;
+				position:relative;
+				display: table;
+				height: 100%;
+				width: 100%;
+			}
 		}
-		& > div.footer {display: table-footer-group;}
+		& > div.footer {display:table-row;height:1px;}
 		.overflow-y {
+			position: absolute;
 			width: 100%;
 			height: 100%;
 			overflow-y: auto;
-
-			min-height:$checklist-minheight; //works in conjunction with .rdb-drop-box height style below
 		}
 	}
 
@@ -85,7 +90,7 @@ $dropbox-minheight: $checklist-minheight + (16 * 8.5); //assumes em = 16px, 8.3 
 	.react-drop-button {
 		.rdb-drop-box {
 			padding:0;
-			min-width:186px;
+			min-width:192px;
 			background-color: #fff;
 		}
 		.drop-box-content {
