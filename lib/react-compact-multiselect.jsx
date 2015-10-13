@@ -24,10 +24,14 @@ var ReactCompactMultiselect = React.createClass({
     initialValue: React.PropTypes.array,
     layoutMode: React.PropTypes.string,
     groupBy: React.PropTypes.string,
-    onChange: React.PropTypes.func
+    onChange: React.PropTypes.func,
+    info: React.PropTypes.any
   },
   getDefaultProps: function() {
-    return {layoutMode: ALIGN_CONTENT_SE};
+    return {
+      layoutMode: ALIGN_CONTENT_SE,
+      info: {}
+    };
   },
   getInitialState: function() {
     return {value: [], filterValue: ''};
@@ -105,6 +109,7 @@ var ReactCompactMultiselect = React.createClass({
                 ref="FilteredCheckList"
                 options={this.props.options}
                 groupBy={this.props.groupBy}
+                info={this.props.info}
                 onChange={this.handleCheckToggle}
                 onFilterValueChange={this.filterValueChange}
                 value={this.state.value}
