@@ -11,7 +11,8 @@ A "multi select" to select and filter on items in a check list. This component m
 
 ###Optional
 * **groupBy**: (key) Group objects in the list by a 'group' determined by your specificied key. The options data must now also include data with this key property.
-* **layoutMode**: (Layout choice) The layout orientation for the drop box content. Choices are CompactMultiSelect.ALIGN_CONTENT_SE, CompactMultiSelect.ALIGN_CONTENT_NE, CompactMultiSelect.ALIGN_CONTENT_SW, CompactMultiSelect.ALIGN_CONTENT_NW. The default position is South East meaning the content pops out from the bottom left of the DropButton. 
+* **layoutMode**: (Layout choice) The layout orientation for the drop box content. Choices are CompactMultiSelect.ALIGN_CONTENT_SE, CompactMultiSelect.ALIGN_CONTENT_NE, CompactMultiSelect.ALIGN_CONTENT_SW, CompactMultiSelect.ALIGN_CONTENT_NW. The default position is South East meaning the content pops out from the bottom left of the DropButton.
+* **Info**: (Any) Additional info to be shown at the bottom. If it's a group, it should be a map, keyed by group objects, which will be shown at the bottom of their respective groups. The actual info content should be anything that can be displayed, usually a string or ReactComponent.
 
 JSX
 ```js

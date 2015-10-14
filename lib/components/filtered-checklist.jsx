@@ -35,12 +35,17 @@ var FilteredChecklist = React.createClass({
   },
   getItemsChecked: function() {
     var count = -1;
-    return this.state.filteredOptions.map(function(opt){
+    var items = this.state.filteredOptions.map(function(opt){
         count ++;
         var checked = this.isChecked(opt);
-        return (<ChecklistItem count={count} label={opt.label} checked={checked} value={opt.value} onChange={this.props.onChange} />);
+        return (<ChecklistItem count={count} label={opt.label} checked={checked} value={opt.value} key={opt.value} onChange={this.props.onChange} />);
     }, this);
     
+    if(this.props.info) {
+      items.push(<li className="rcm-group-info" key="FCINFO">{this.props.info}</li>);
+    }
+
+    return items;
   },
   getItemsCheckedGroupBy: function(sortGroupsDescending) {
     var uniqueGroups = Lazy(this.props.options)
@@ -56,14 +61,22 @@ var FilteredChecklist = React.createClass({
                                  .map(function(opt) {
                                     var checked = this.isChecked(opt);
                                     return (
-                                      <ChecklistItem label={opt.label} checked={checked} value={opt.value} onChange={this.props.onChange} />
+                                      <ChecklistItem label={opt.label} checked={checked} value={opt.value} key={opt.value} onChange={this.props.onChange} />
                                     );
                                   }, this);
-      if(groupOptions.length > 0) {
-        var heading = (<li className="rcm-group-heading">{group}</li>);
-        groupOptionElements.splice(0, 0, heading);
+
+      if(groupOptions.length === 0) {
+        return groupOptionElements;
       }
-      
+
+      var heading = (<li className="rcm-group-heading" key={group + " heading"}>{group}</li>);
+      groupOptionElements.unshift(heading);
+
+      var groupInfo = this.props.info[group];
+
+      if(groupInfo) {
+        groupOptionElements.push(<li className="rcm-group-info" key={group + " info"}>{groupInfo}</li>);
+      }
 
       return groupOptionElements;
     }, this);
