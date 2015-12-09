@@ -1,6 +1,19 @@
 var React = require("react/addons");
 var ChecklistItem = require("./checklist-item.jsx");
 var Lazy = require('lazy.js');
+var SizeBox = require('react-sizebox');
+
+var Checklist = React.createClass({
+  render: function() {
+    return (
+      <ul
+        className="rcm-checklist-items"
+        style={{height: this.props.height}}>
+        {this.props.checklistItems}
+      </ul>
+    );
+  }
+});
 
 var FilteredChecklist = React.createClass({
   propTypes: {
@@ -108,11 +121,9 @@ var FilteredChecklist = React.createClass({
           </div>
         </div>
         <div className="content">
-          <div className="overflow-y">
-            <ul className="rcm-checklist-items">
-              {checklistItems}
-            </ul>
-          </div>
+          <SizeBox className="overflow-y rsx-SizeBox" heightProp="height">
+            <Checklist checklistItems={checklistItems}/>
+          </SizeBox>
         </div>
       </div>
     );
