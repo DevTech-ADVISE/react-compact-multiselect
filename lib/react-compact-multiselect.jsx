@@ -81,8 +81,8 @@ var ReactCompactMultiselect = React.createClass({
     this.props.onChange(newValueState);
     this.setState({value: newValueState});
   },
-  filterValueChange: function(inputValue, callBack) {
-    this.setState({filterValue: inputValue}, callBack);
+  filterValueChange: function(event) {
+    this.setState({filterValue: event.target.value});
   },
   doneSelecting: function() {
     //Call internal DropButton function to close the drop down
@@ -105,6 +105,16 @@ var ReactCompactMultiselect = React.createClass({
           <DropTrigger>{label} {selectedCount} </DropTrigger>
           <DropBoxContent>
             <div className="fluid-layout">
+              <div className="header">
+                <div className="rcm-filter-box">
+                  <input  type="text" 
+                          ref="input"
+                          onChange={this.filterValueChange} 
+                          placeholder="Type to filter..." 
+                          value={this.state.filterValue}/>
+                  <button className="clear-filter" name="clear-filter" onClick={this.clearFilter}>&#215;</button>
+                </div>
+              </div>
               <FilteredChecklist 
                 ref="FilteredCheckList"
                 options={this.props.options}
