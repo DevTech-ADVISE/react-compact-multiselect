@@ -18,6 +18,7 @@ var ReactCompactMultiselect = React.createClass({
     ALIGN_CONTENT_SW: ALIGN_CONTENT_SW,
     ALIGN_CONTENT_NW: ALIGN_CONTENT_NW
   },
+
   propTypes: {
     label: React.PropTypes.string,
     options: React.PropTypes.array,
@@ -27,21 +28,26 @@ var ReactCompactMultiselect = React.createClass({
     onChange: React.PropTypes.func,
     info: React.PropTypes.any
   },
+
   getDefaultProps: function() {
     return {
       layoutMode: ALIGN_CONTENT_SE,
       info: {}
     };
   },
+
   getInitialState: function() {
     return {value: [], filterValue: ''};
   },
+
   componentWillMount: function() {
     this.setState({value: this.props.initialValue});
   },
+
   handleCheckToggle: function(optionValue) {
     var newValueState = this.state.value.slice(0);
     var valueIndex = newValueState.indexOf(optionValue);
+
     if(valueIndex > -1){
         newValueState.splice(valueIndex,1);
     } else {
@@ -50,6 +56,7 @@ var ReactCompactMultiselect = React.createClass({
 
     this.fireValueChange(newValueState);
   },
+
   selectAll: function() {
     var filterValue = String(this.state.filterValue).toLowerCase();
     var currentValues = this.state.value;
@@ -62,6 +69,7 @@ var ReactCompactMultiselect = React.createClass({
 
     this.fireValueChange(currentValues.concat(allValues));
   },
+
   deselectAll: function() {
     var filterValue = String(this.state.filterValue).toLowerCase();
     var currentValues = this.state.value;
@@ -75,29 +83,38 @@ var ReactCompactMultiselect = React.createClass({
 
     this.fireValueChange(currentValues);
   },
+
   fireValueChange: function(newValueState) {
     //value can change from the check boxes, or from the select all type buttons
     //make sure state gets propogated above and below
     this.props.onChange(newValueState);
     this.setState({value: newValueState});
   },
-  filterValueChange: function(inputValue, callBack) {
-    this.setState({filterValue: inputValue}, callBack);
+
+  filterValueChange: function(event) {
+    this.setState({filterValue: event.target.value});
   },
+
   doneSelecting: function() {
     //Call internal DropButton function to close the drop down
     this.refs.DropButton.toggleDropBox();
   },
+
   focusChecklist: function() {
     React.findDOMNode(this.refs.FilteredCheckList).focus();
   },
-  render: function() {
-    var selectedCount, label;
-    selectedCount = (<span className="rcm-selected-count">{this.state.value.length}</span>);
-    if(this.state.value.length === 0)
-      selectedCount = "";
 
-    label = (<span className="rcm-label">{this.props.label}</span>);
+  clearFilter: function() {
+    this.setState({filterValue: ""});
+  },
+
+  render: function() {
+    var selectedCount = "";
+
+    if(this.state.value.length !== 0)
+      selectedCount = (<span className="rcm-selected-count">{this.state.value.length}</span>);
+
+    var label = (<span className="rcm-label">{this.props.label}</span>);
 
     return (
       <div className="react-compact-multiselect">
@@ -105,6 +122,16 @@ var ReactCompactMultiselect = React.createClass({
           <DropTrigger>{label} {selectedCount} </DropTrigger>
           <DropBoxContent>
             <div className="fluid-layout">
+              <div className="header">
+                <div className="rcm-filter-box">
+                  <input  type="text" 
+                          ref="input"
+                          onChange={this.filterValueChange} 
+                          placeholder="Type to filter..." 
+                          value={this.state.filterValue}/>
+                  <button className="clear-filter" name="clear-filter" onClick={this.clearFilter}>&#215;</button>
+                </div>
+              </div>
               <FilteredChecklist 
                 ref="FilteredCheckList"
                 options={this.props.options}
