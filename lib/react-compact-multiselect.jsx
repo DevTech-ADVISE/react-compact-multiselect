@@ -1,4 +1,4 @@
-var React = require("react/addons");
+var React = require("react");
 var DropButton = require("react-drop-button");
 var DropTrigger = DropButton.DropTrigger;
 var DropBoxContent = DropButton.DropBoxContent;

@@ -1,4 +1,4 @@
-var React = require("react/addons");
+var React = require("react");
 var ChecklistItem = require("./checklist-item.jsx");
 var Lazy = require('lazy.js');
 
