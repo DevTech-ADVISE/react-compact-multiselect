@@ -1,5 +1,5 @@
 var React = require("react");
-var ChecklistItem = require("./checklist-item.jsx");
+var ChecklistItem = require("./checklist-item.js");
 var Lazy = require('lazy.js');
 
 module.exports = React.createClass({

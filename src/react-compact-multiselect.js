@@ -2,7 +2,7 @@ var React = require("react");
 var DropButton = require("react-drop-button");
 var DropTrigger = DropButton.DropTrigger;
 var DropBoxContent = DropButton.DropBoxContent;
-var FilteredChecklist = require("./components/filtered-checklist.jsx");
+var FilteredChecklist = require("./components/filtered-checklist.js");
 require("./react-compact-multiselect.scss");
 
 var ALIGN_CONTENT_SE = DropButton.ALIGN_CONTENT_SE;
