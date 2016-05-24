@@ -13,7 +13,7 @@ module.exports = React.createClass({
     var checkBoxId = String(this.props.value) + "-" + String(this.props.label);
     return (
       <li ref={"rcm-item-" + this.props.count} className="rcm-checklist-item" onClick={this.handleCheckToggle}>
-        <input id={checkBoxId} type="checkbox" checked={this.props.checked} readOnly={true} /><label for={checkBoxId}>{this.props.label}</label>
+        <input id={checkBoxId} type="checkbox" checked={this.props.checked} /><label for={checkBoxId}>{this.props.label}</label>
       </li>
     );
   }
