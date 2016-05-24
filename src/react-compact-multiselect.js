@@ -18,26 +18,36 @@ var ReactCompactMultiselect = React.createClass({
     ALIGN_CONTENT_SW: ALIGN_CONTENT_SW,
     ALIGN_CONTENT_NW: ALIGN_CONTENT_NW
   },
+
   propTypes: {
     label: React.PropTypes.string,
     options: React.PropTypes.array,
     initialValue: React.PropTypes.array,
     layoutMode: React.PropTypes.string,
     groupBy: React.PropTypes.string,
-    onChange: React.PropTypes.func
+    onChange: React.PropTypes.func,
+    info: React.PropTypes.any
   },
+
   getDefaultProps: function() {
-    return {layoutMode: ALIGN_CONTENT_SE};
+    return {
+      layoutMode: ALIGN_CONTENT_SE,
+      info: {}
+    };
   },
+
   getInitialState: function() {
     return {value: [], filterValue: ''};
   },
+
   componentWillMount: function() {
     this.setState({value: this.props.initialValue});
   },
+
   handleCheckToggle: function(optionValue) {
     var newValueState = this.state.value.slice(0);
     var valueIndex = newValueState.indexOf(optionValue);
+
     if(valueIndex > -1){
         newValueState.splice(valueIndex,1);
     } else {
@@ -46,44 +56,87 @@ var ReactCompactMultiselect = React.createClass({
 
     this.fireValueChange(newValueState);
   },
+
   selectAll: function() {
-    var allValues = this.props.options.map(function(opt) {return opt.value;});
-    this.fireValueChange(allValues);
+    var filterValue = String(this.state.filterValue).toLowerCase();
+    var currentValues = this.state.value;
+
+    var allValues = this.props.options.filter(function(opt) {
+        return (String(opt.label).toLowerCase().indexOf(filterValue) > -1); 
+    })
+    .map(function(opt) {return opt.value;})
+    .filter(function(opt) { return currentValues.indexOf(opt) === -1; });
+
+    this.fireValueChange(currentValues.concat(allValues));
   },
+
   deselectAll: function() {
-    this.fireValueChange([]);
+    var filterValue = String(this.state.filterValue).toLowerCase();
+    var currentValues = this.state.value;
+
+    var filteredValues = this.props.options.filter(function(opt) {
+        return (String(opt.label).toLowerCase().indexOf(filterValue) > -1); 
+    })
+    .map(function(opt) {return opt.value;});
+
+    currentValues = currentValues.filter(function(opt) { return filteredValues.indexOf(opt) === -1; });
+
+    this.fireValueChange(currentValues);
   },
+
   fireValueChange: function(newValueState) {
     //value can change from the check boxes, or from the select all type buttons
     //make sure state gets propogated above and below
     this.props.onChange(newValueState);
     this.setState({value: newValueState});
   },
-  filterValueChange: function(inputValue, callBack) {
-    this.setState({filterValue: inputValue}, callBack);
+
+  filterValueChange: function(event) {
+    this.setState({filterValue: event.target.value});
   },
+
   doneSelecting: function() {
     //Call internal DropButton function to close the drop down
     this.refs.DropButton.toggleDropBox();
   },
-  render: function() {
-    var selectedCount, label;
-    selectedCount = (<span className="rcm-selected-count">{this.state.value.length}</span>);
-    if(this.state.value.length === 0)
-      selectedCount = "";
 
-    label = (<span className="rcm-label">{this.props.label}</span>);
+  focusChecklist: function() {
+    React.findDOMNode(this.refs.FilteredCheckList).focus();
+  },
+
+  clearFilter: function() {
+    this.setState({filterValue: ""});
+  },
+
+  render: function() {
+    var selectedCount = "";
+
+    if(this.state.value.length !== 0)
+      selectedCount = (<span className="rcm-selected-count">{this.state.value.length}</span>);
+
+    var label = (<span className="rcm-label">{this.props.label}</span>);
 
     return (
       <div className="react-compact-multiselect">
-        <DropButton layoutMode={this.props.layoutMode} ref="DropButton">
+        <DropButton layoutMode={this.props.layoutMode} onOpen={this.focusChecklist} ref="DropButton" label={label}>
           <DropTrigger>{label} {selectedCount} </DropTrigger>
           <DropBoxContent>
             <div className="fluid-layout">
+              <div className="header">
+                <div className="rcm-filter-box">
+                  <input  type="text" 
+                          ref="input"
+                          onChange={this.filterValueChange} 
+                          placeholder="Type to filter..." 
+                          value={this.state.filterValue}/>
+                  <button className="clear-filter" name="clear-filter" onClick={this.clearFilter}>&#215;</button>
+                </div>
+              </div>
               <FilteredChecklist 
                 ref="FilteredCheckList"
                 options={this.props.options}
                 groupBy={this.props.groupBy}
+                info={this.props.info}
                 onChange={this.handleCheckToggle}
                 onFilterValueChange={this.filterValueChange}
                 value={this.state.value}

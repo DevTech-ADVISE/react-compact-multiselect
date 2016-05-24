@@ -16,6 +16,13 @@ var DemoCompactMultiselect = React.createClass({
           {value: 10, label: "Doug", network: "Nickelodeon"},
           {value: 11, label: "The Ren & Stimpy Show", network: "Nickelodeon"},
           {value: 12, label: "7th Heaven", network: "WB"}],
+
+    info: {
+      WB: "Teen Heartthrob Central",
+      Nickelodeon: "All the kids shows you still watch",
+      "Comedy Central": (<span title="Not actually the best">Best Channel</span>)
+    },
+
   	getInitialState: function() {
   		return {value: []}
   	},
@@ -32,6 +39,7 @@ var DemoCompactMultiselect = React.createClass({
 	  				initialValue={this.state.value}
 	  				label={"Tv Shows"} 
             groupBy={"network"}
+            info={this.info}
 	  				onChange={this.handleSelectionChange}
             layoutMode={ReactCompactMultiselect.ALIGN_CONTENT_SE} />
   			</div>
