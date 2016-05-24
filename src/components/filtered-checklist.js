@@ -1,5 +1,5 @@
-var React = require("react/addons");
-var ChecklistItem = require("./checklist-item.jsx");
+var React = require("react");
+var ChecklistItem = require("./checklist-item.js");
 var Lazy = require('lazy.js');
 var SizeBox = require('react-sizebox');
 

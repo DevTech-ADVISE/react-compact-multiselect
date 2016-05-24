@@ -1,5 +1,6 @@
-var React = require('react/addons');
-var ReactCompactMultiselect = require('./lib/react-compact-multiselect.jsx');
+var React = require('react');
+var ReactDOM = require('react-dom');
+var ReactCompactMultiselect = require('./src/react-compact-multiselect.js');
 
 
 var DemoCompactMultiselect = React.createClass({
@@ -46,6 +47,6 @@ var DemoCompactMultiselect = React.createClass({
   	}
   });
 
-React.render(
+ReactDOM.render(
     	<DemoCompactMultiselect />
     	, document.getElementById('main'));
