@@ -1,5 +1,6 @@
 jest.unmock('../dist/react-compact-multiselect.js');
 jest.unmock('js-test-data');
+jest.unmock('react-drop-button');
 var React = require('react');
 var ReactDOM = require('react-dom');
 var TestUtils = require('react-addons-test-utils');
