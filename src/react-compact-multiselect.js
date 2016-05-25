@@ -32,8 +32,7 @@ var ReactCompactMultiselect = React.createClass({
 
   getDefaultProps: function() {
     return {
-      layoutMode: ALIGN_CONTENT_SE,
-      info: {}
+      layoutMode: ALIGN_CONTENT_SE
     };
   },
 
