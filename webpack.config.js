@@ -29,7 +29,7 @@ module.exports = {
   },
 
   externals: {
-    react: {
+    'react': {
       root: 'React',
       commonjs: 'react',
       commonjs2: 'react',
@@ -41,11 +41,23 @@ module.exports = {
       commonjs2: 'react-dom',
       amd: 'react-dom',
     },
-    'react-addons-css-transition-group' : {
-      root: 'ReactCSSTransitionGroup',
-      commonjs: 'react-addons-css-transition-group',
-      commonjs2: 'react-addons-css-transition-group',
-      amd: 'react-addons-css-transition-group',
+    'lazy.js': {
+      root: 'Lazy',
+      commonjs: 'lazy.js',
+      commonjs2: 'lazy.js',
+      amd: 'lazy.js',
+    },
+    'react-drop-button': {
+      root: 'DropButton',
+      commonjs: 'react-drop-button',
+      commonjs2: 'react-drop-button',
+      amd: 'react-drop-button',
+    },
+    'react-sizebox': {
+      root: 'SizeBox',
+      commonjs: 'react-sizebox',
+      commonjs2: 'react-sizebox',
+      amd: 'react-sizebox',
     },
   },
 
