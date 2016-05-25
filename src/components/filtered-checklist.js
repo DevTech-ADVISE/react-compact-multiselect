@@ -29,7 +29,7 @@ var FilteredChecklist = React.createClass({
     var filterValue = String(this.props.filterValue).toLowerCase();
 
     return this.props.options.filter(function(opt){
-        return (String(opt.label).toLowerCase().indexOf(filterValue) > -1); 
+        return (String(opt.label).toLowerCase().indexOf(filterValue) > -1);
     });
   },
 
@@ -40,7 +40,7 @@ var FilteredChecklist = React.createClass({
 
         return (<ChecklistItem count={count++} label={opt.label} checked={checked} value={opt.value} key={opt.value} onChange={this.props.onChange} />);
     }, this);
-    
+
     if(this.props.info) {
       items.push(<li className="rcm-group-info" key="FCINFO">{this.props.info}</li>);
     }
@@ -54,10 +54,10 @@ var FilteredChecklist = React.createClass({
                         .uniq()
                         .sort(null, sortGroupsDescending)
                         .toArray();
-
     var checkListItems = uniqueGroups.map(function(group) {
       var groupOptions = this.getFilteredOptions().filter(function(opt) {return opt[this.props.groupBy] === group;}, this);
       var groupOptionElements = Lazy(groupOptions)
+                                 .uniq('value')
                                  .sortBy("label")
                                  .toArray()
                                  .map(function(opt) {
@@ -74,6 +74,10 @@ var FilteredChecklist = React.createClass({
       var heading = (<li className="rcm-group-heading" key={group + " heading"}>{group}</li>);
       groupOptionElements.unshift(heading);
 
+      if(!this.props.info) {
+        return groupOptionElements;
+      }
+
       var groupInfo = this.props.info[group];
 
       if(groupInfo) {
@@ -89,7 +93,7 @@ var FilteredChecklist = React.createClass({
   isChecked: function(option) {
     return (this.props.value.indexOf(option.value) !== -1);
   },
-  
+
   render: function() {
     var checklistItems = (this.props.groupBy) ? this.getItemsCheckedGroupBy() : this.getItemsChecked();
 
