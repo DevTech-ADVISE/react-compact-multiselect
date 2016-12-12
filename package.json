@@ -15,7 +15,7 @@
   "dependencies": {
     "lazy.js": "^0.4.2",
     "react-drop-button": "git+https://github.com/BI/react-drop-button",
-    "react-sizebox": "git+https://github.com/BI/react-sizebox"
+    "react-sizebox": "git+https://github.com/BI/react-sizebox#v0.1"
   },
   "devDependencies": {
     "babel-core": "^6.9.0",
