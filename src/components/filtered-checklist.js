@@ -2,6 +2,7 @@ var React = require("react");
 var ChecklistItem = require("./checklist-item.js");
 var Lazy = require('lazy.js');
 var SizeBox = require('react-sizebox');
+var lunr = require('lunr');
 
 var Checklist = React.createClass({
   render: function() {
@@ -25,12 +26,59 @@ var FilteredChecklist = React.createClass({
     onFilterValueChange: React.PropTypes.func,
   },
 
-  getFilteredOptions: function() {
-    var filterValue = String(this.props.filterValue).toLowerCase();
+  componentWillMount: function() {
+		this.blankSearch()
+  },
 
-    return this.props.options.filter(function(opt){
-        return (String(opt.label).toLowerCase().indexOf(filterValue) > -1);
-    });
+	componentWillUpdate: function() {
+		this.blankSearch()
+	},
+
+  blankSearch: function() {
+		this.search = null
+	},
+
+	getSearch: function() {
+		if (!this.search) {
+			this.search = this.makeSearch()
+			this.fillSearch(this.search, this.props.options)
+		}
+
+		return this.search
+	},
+
+	makeSearch: function() {
+    var fcThis = this;
+		var search = lunr(function() {
+			var lunrThis = this;
+
+      if(fcThis.props.groupBy) {
+        lunrThis.field(fcThis.props.groupBy, 100);
+      }
+
+      lunrThis.field('label', 10);
+      lunrThis.field('value', 1);
+
+      lunrThis.pipeline.remove(lunr.stemmer)
+      lunrThis.pipeline.remove(lunr.stopWordFilter)
+
+			lunrThis.ref('value');
+		})
+
+		return search;
+	},
+
+	fillSearch: function(search, options) {
+		options.forEach(function (opt) {
+			search.add(opt)
+		})
+	},
+
+  getFilteredOptions: function() {
+    var valueFilter = this.props.filterValue.toLowerCase()
+    var options = this.props.options
+
+    return this.props.getFilteredOptions(valueFilter, options)
   },
 
   getItemsChecked: function() {

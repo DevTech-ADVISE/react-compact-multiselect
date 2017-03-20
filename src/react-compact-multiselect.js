@@ -4,6 +4,7 @@ var DropButton = require('react-drop-button');
 var DropTrigger = DropButton.DropTrigger;
 var DropBoxContent = DropButton.DropBoxContent;
 var FilteredChecklist = require('./components/filtered-checklist.js');
+var lunr = require('lunr')
 require('./react-compact-multiselect.scss');
 
 var ALIGN_CONTENT_SE = DropButton.ALIGN_CONTENT_SE;
@@ -42,6 +43,69 @@ var ReactCompactMultiselect = React.createClass({
 
   componentWillMount: function() {
     this.setState({value: this.props.initialValue});
+		this.blankSearch()
+  },
+
+	componentWillUpdate: function() {
+		this.blankSearch()
+	},
+
+  blankSearch: function() {
+		this.search = null
+	},
+
+	getSearch: function() {
+		if (!this.search) {
+			this.search = this.makeSearch()
+			this.fillSearch(this.search, this.props.options)
+		}
+
+		return this.search
+	},
+
+	makeSearch: function() {
+    var rcmThis = this;
+		var search = lunr(function() {
+			var lunrThis = this;
+
+      if(rcmThis.props.groupBy) {
+        lunrThis.field(rcmThis.props.groupBy, 100);
+      }
+
+      lunrThis.field('label', 10);
+      lunrThis.field('value', 1);
+
+      lunrThis.pipeline.remove(lunr.stemmer)
+      lunrThis.pipeline.remove(lunr.stopWordFilter)
+
+			lunrThis.ref('value');
+		})
+
+		return search;
+	},
+
+	fillSearch: function(search, options) {
+		options.forEach(function (opt) {
+			search.add(opt)
+		})
+	},
+
+  getFilteredOptions: function(filterValue, options) {
+		if(!filterValue) {
+			return options
+		}
+
+		var results = this.getSearch().search(filterValue)
+
+		var optionMap = {}
+		options.forEach(function (opt) {
+			var ref = opt.value
+			optionMap[ref] = opt
+		}, this)
+
+		return results.map(function(r) {
+			return optionMap[r.ref]
+		})
   },
 
   handleCheckToggle: function(optionValue) {
@@ -61,9 +125,7 @@ var ReactCompactMultiselect = React.createClass({
     var filterValue = String(this.state.filterValue).toLowerCase();
     var currentValues = this.state.value;
 
-    var allValues = this.props.options.filter(function(opt) {
-        return (String(opt.label).toLowerCase().indexOf(filterValue) > -1);
-    })
+    var allValues = this.getFilteredOptions(filterValue, this.props.options)
     .map(function(opt) {return opt.value;})
     .filter(function(opt) { return currentValues.indexOf(opt) === -1; });
 
@@ -74,9 +136,7 @@ var ReactCompactMultiselect = React.createClass({
     var filterValue = String(this.state.filterValue).toLowerCase();
     var currentValues = this.state.value;
 
-    var filteredValues = this.props.options.filter(function(opt) {
-        return (String(opt.label).toLowerCase().indexOf(filterValue) > -1);
-    })
+    var filteredValues = this.getFilteredOptions(filterValue, this.props.options)
     .map(function(opt) {return opt.value;});
 
     currentValues = currentValues.filter(function(opt) { return filteredValues.indexOf(opt) === -1; });
@@ -139,6 +199,7 @@ var ReactCompactMultiselect = React.createClass({
                 info={this.props.info}
                 onChange={this.handleCheckToggle}
                 onFilterValueChange={this.filterValueChange}
+                getFilteredOptions={this.getFilteredOptions}
                 value={this.state.value}
                 filterValue={this.state.filterValue} />
               <div className='footer'>
