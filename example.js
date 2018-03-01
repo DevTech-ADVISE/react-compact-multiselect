@@ -1,9 +1,10 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
+var createReactClass = require('create-react-class');
 var ReactCompactMultiselect = require('./src/react-compact-multiselect.js');
 
 
-var DemoCompactMultiselect = React.createClass({
+var DemoCompactMultiselect = createReactClass({
   	options: [{value: 1, label: "South Park", network: "Comedy Central"},
   			  {value: 2, label: "All That", network: "Nickelodeon"},
   			  {value: 3, label: "Buffy", network: "WB"}, 

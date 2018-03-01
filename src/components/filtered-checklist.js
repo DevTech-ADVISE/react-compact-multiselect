@@ -1,10 +1,12 @@
 var React = require("react");
+var PropTypes = require('prop-types');
+var createReactClass = require('create-react-class');
 var ChecklistItem = require("./checklist-item.js");
 var Lazy = require('lazy.js');
 var SizeBox = require('react-sizebox');
 var lunr = require('lunr');
 
-var Checklist = React.createClass({
+var Checklist = createReactClass({
   render: function() {
     return (
       <ul
@@ -16,14 +18,14 @@ var Checklist = React.createClass({
   }
 });
 
-var FilteredChecklist = React.createClass({
+var FilteredChecklist = createReactClass({
   propTypes: {
-    value: React.PropTypes.array,
-    filterValue: React.PropTypes.string,
-    options: React.PropTypes.array,
-    groupBy: React.PropTypes.string,
-    onChange: React.PropTypes.func,
-    onFilterValueChange: React.PropTypes.func,
+    value: PropTypes.array,
+    filterValue: PropTypes.string,
+    options: PropTypes.array,
+    groupBy: PropTypes.string,
+    onChange: PropTypes.func,
+    onFilterValueChange: PropTypes.func,
   },
 
   componentWillMount: function() {

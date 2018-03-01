@@ -1,5 +1,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
+var PropTypes = require('prop-types');
+var createReactClass = require('create-react-class');
 var DropButton = require('react-drop-button');
 var DropTrigger = DropButton.DropTrigger;
 var DropBoxContent = DropButton.DropBoxContent;
@@ -13,7 +15,7 @@ var ALIGN_CONTENT_SW = DropButton.ALIGN_CONTENT_SW;
 var ALIGN_CONTENT_NW = DropButton.ALIGN_CONTENT_NW;
 
 
-var ReactCompactMultiselect = React.createClass({
+var ReactCompactMultiselect = createReactClass({
   statics: {
     ALIGN_CONTENT_SE: ALIGN_CONTENT_SE,
     ALIGN_CONTENT_NE: ALIGN_CONTENT_NE,
@@ -22,13 +24,13 @@ var ReactCompactMultiselect = React.createClass({
   },
 
   propTypes: {
-    label: React.PropTypes.string,
-    options: React.PropTypes.array,
-    initialValue: React.PropTypes.array,
-    layoutMode: React.PropTypes.string,
-    groupBy: React.PropTypes.string,
-    onChange: React.PropTypes.func,
-    info: React.PropTypes.any
+    label: PropTypes.string,
+    options: PropTypes.array,
+    initialValue: PropTypes.array,
+    layoutMode: PropTypes.string,
+    groupBy: PropTypes.string,
+    onChange: PropTypes.func,
+    info: PropTypes.any
   },
 
   getDefaultProps: function() {
