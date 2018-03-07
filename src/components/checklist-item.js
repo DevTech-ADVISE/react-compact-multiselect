@@ -1,9 +1,11 @@
 var React = require("react");
+var PropTypes = require('prop-types');
+var createReactClass = require('create-react-class');
 
- var ChecklistItem = React.createClass({
+ var ChecklistItem = createReactClass({
   propTypes: {
-    value: React.PropTypes.any,
-    label: React.PropTypes.string
+    value: PropTypes.any,
+    label: PropTypes.string
   },
 
   handleCheckToggle: function() {
