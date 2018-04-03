@@ -170,7 +170,7 @@ var ReactCompactMultiselect = createReactClass({
   render: function() {
     var selectedCount = '';
 
-    if(this.props.filterValue.length !== 0)
+    if(this.props.selectedValues.length !== 0)
       selectedCount = (<span className='rcm-selected-count'>{this.props.selectedValues.length}</span>);
 
     var label = (<span className='rcm-label'>{this.props.label}</span>);
