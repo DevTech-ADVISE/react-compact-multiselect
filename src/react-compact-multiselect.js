@@ -14,7 +14,6 @@ var ALIGN_CONTENT_NE = DropButton.ALIGN_CONTENT_NE;
 var ALIGN_CONTENT_SW = DropButton.ALIGN_CONTENT_SW;
 var ALIGN_CONTENT_NW = DropButton.ALIGN_CONTENT_NW;
 
-
 var ReactCompactMultiselect = createReactClass({
   statics: {
     ALIGN_CONTENT_SE: ALIGN_CONTENT_SE,
@@ -26,7 +25,11 @@ var ReactCompactMultiselect = createReactClass({
   propTypes: {
     label: PropTypes.string,
     options: PropTypes.array,
-    initialValue: PropTypes.array,
+    selectedValues: PropTypes.array,
+    onSelectionChange: PropTypes.func,
+    filterValue: PropTypes.string,
+    onFilterValueChange: PropTypes.func,
+    onClearFilter: PropTypes.func,
     layoutMode: PropTypes.string,
     groupBy: PropTypes.string,
     onChange: PropTypes.func,
@@ -39,12 +42,7 @@ var ReactCompactMultiselect = createReactClass({
     };
   },
 
-  getInitialState: function() {
-    return {value: [], filterValue: ''};
-  },
-
   componentWillMount: function() {
-    this.setState({value: this.props.initialValue});
 		this.blankSearch()
   },
 
@@ -111,7 +109,7 @@ var ReactCompactMultiselect = createReactClass({
   },
 
   handleCheckToggle: function(optionValue) {
-    var newValueState = this.state.value.slice(0);
+    var newValueState = this.props.selectedValues.slice(0);
     var valueIndex = newValueState.indexOf(optionValue);
 
     if(valueIndex > -1){
@@ -124,8 +122,8 @@ var ReactCompactMultiselect = createReactClass({
   },
 
   selectAll: function() {
-    var filterValue = String(this.state.filterValue).toLowerCase();
-    var currentValues = this.state.value;
+    var filterValue = String(this.props.filterValue).toLowerCase();
+    var currentValues = this.props.selectedValues;
 
     var allValues = this.getFilteredOptions(filterValue, this.props.options)
     .map(function(opt) {return opt.value;})
@@ -135,8 +133,8 @@ var ReactCompactMultiselect = createReactClass({
   },
 
   deselectAll: function() {
-    var filterValue = String(this.state.filterValue).toLowerCase();
-    var currentValues = this.state.value;
+    var filterValue = String(this.props.filterValue).toLowerCase();
+    var currentValues = this.props.selectedValues;
 
     var filteredValues = this.getFilteredOptions(filterValue, this.props.options)
     .map(function(opt) {return opt.value;});
@@ -149,12 +147,11 @@ var ReactCompactMultiselect = createReactClass({
   fireValueChange: function(newValueState) {
     //value can change from the check boxes, or from the select all type buttons
     //make sure state gets propogated above and below
-    this.props.onChange(newValueState);
-    this.setState({value: newValueState});
+    this.props.onSelectionChange(newValueState);
   },
 
   filterValueChange: function(event) {
-    this.setState({filterValue: event.target.value});
+    this.props.onFilterValueChange(event.target.value)
   },
 
   doneSelecting: function() {
@@ -167,14 +164,14 @@ var ReactCompactMultiselect = createReactClass({
   },
 
   clearFilter: function() {
-    this.setState({filterValue: ''});
+    this.props.onClearFilter()
   },
 
   render: function() {
     var selectedCount = '';
 
-    if(this.state.value.length !== 0)
-      selectedCount = (<span className='rcm-selected-count'>{this.state.value.length}</span>);
+    if(this.props.filterValue.length !== 0)
+      selectedCount = (<span className='rcm-selected-count'>{this.props.selectedValues.length}</span>);
 
     var label = (<span className='rcm-label'>{this.props.label}</span>);
 
@@ -186,11 +183,13 @@ var ReactCompactMultiselect = createReactClass({
             <div className='fluid-layout'>
               <div className='header'>
                 <div className='rcm-filter-box'>
-                  <input  type='text'
-                          ref='input'
-                          onChange={this.filterValueChange}
-                          placeholder='Type to filter...'
-                          value={this.state.filterValue}/>
+                  <input
+                    type='text'
+                    ref='input'
+                    onChange={this.filterValueChange}
+                    placeholder='Type to filter...'
+                    value={this.props.filterValue}
+                  />
                   <button className='clear-filter' name='clear-filter' onClick={this.clearFilter}>&#215;</button>
                 </div>
               </div>
@@ -202,8 +201,8 @@ var ReactCompactMultiselect = createReactClass({
                 onChange={this.handleCheckToggle}
                 onFilterValueChange={this.filterValueChange}
                 getFilteredOptions={this.getFilteredOptions}
-                value={this.state.value}
-                filterValue={this.state.filterValue} />
+                value={this.props.selectedValues}
+                filterValue={this.props.filterValue} />
               <div className='footer'>
                 <div className='rcm-menu'>
                   <button ref='rcm-select-all' className='select-all' name='select-all' onClick={this.selectAll}><span>Select All</span></button>

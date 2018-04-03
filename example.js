@@ -3,12 +3,11 @@ var ReactDOM = require('react-dom');
 var createReactClass = require('create-react-class');
 var ReactCompactMultiselect = require('./src/react-compact-multiselect.js');
 
-
 var DemoCompactMultiselect = createReactClass({
-  	options: [{value: 1, label: "South Park", network: "Comedy Central"},
-  			  {value: 2, label: "All That", network: "Nickelodeon"},
-  			  {value: 3, label: "Buffy", network: "WB"}, 
-  			  {value: 4, label: "Charmed", network: "WB"},
+    options: [{value: 1, label: "South Park", network: "Comedy Central"},
+          {value: 2, label: "All That", network: "Nickelodeon"},
+          {value: 3, label: "Buffy", network: "WB"}, 
+          {value: 4, label: "Charmed", network: "WB"},
           {value: 5, label: "Supernatural", network: "WB"},
           {value: 6, label: "Chappelle's show", network: "Comedy Central"},
           {value: 7, label: "The Daily Show", network: "Comedy Central"},
@@ -24,30 +23,35 @@ var DemoCompactMultiselect = createReactClass({
       "Comedy Central": (<span title="Not actually the best">Best Channel</span>)
     },
 
-  	getInitialState: function() {
-  		return {value: []}
-  	},
-  	handleSelectionChange: function(newValueState) {
-  		this.setState({value: newValueState});
-  	},
-  	render: function() {
-
-  		return (
-  			<div>
-	  			<div>Selected Values: {this.state.value.join(', ')}</div>
-	  			<ReactCompactMultiselect 
-	  				options={this.options}
-	  				initialValue={this.state.value}
-	  				label={"Tv Shows"} 
+    getInitialState: function() {
+      return { selectedValues: [], filterValue: '' }
+    },
+    handleSelectionChange: function(newValueState) {
+      this.setState({ selectedValues: newValueState });
+    },
+    handleFilterValueChange: function(value) {
+      this.setState({ filterValue: value })
+    },
+    render: function() {
+      return (
+        <div>
+          <div>Selected Values: {this.state.selectedValues.join(', ')}</div>
+          <ReactCompactMultiselect 
+            options={this.options}
+            selectedValues={this.state.selectedValues}
+            filterValue={this.state.filterValue}
+            label={"Tv Shows"} 
             groupBy={"network"}
             info={this.info}
-	  				onChange={this.handleSelectionChange}
+            onSelectionChange={this.handleSelectionChange}
+            onFilterValueChange={this.handleFilterValueChange}
+            onClearFilter={() => this.setState({ filterValue: '' })}
             layoutMode={ReactCompactMultiselect.ALIGN_CONTENT_SE} />
-  			</div>
-  		)
-  	}
+        </div>
+      )
+    }
   });
 
 ReactDOM.render(
-    	<DemoCompactMultiselect />
-    	, document.getElementById('main'));
+      <DemoCompactMultiselect />
+      , document.getElementById('main'));
