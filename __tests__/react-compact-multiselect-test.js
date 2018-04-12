@@ -8,7 +8,7 @@ var ReactCompactMultiselect = require('../dist/react-compact-multiselect');
 var testData = require('js-test-data');
 
 describe('ReactCompactMultiselect', function() {
-  var component, onChangeValues, domNode;
+  var component, componentWithNoSelections, onChangeValues, domNode, domNodeWithNoSelections;
 
   var onChangeTestFunc = function(selection){onChangeValues = selection;};
   var testLabel = 'TV Shows';
@@ -22,11 +22,28 @@ describe('ReactCompactMultiselect', function() {
     component = TestUtils.renderIntoDocument(
       <ReactCompactMultiselect
         options={testData.TVShows}
-        onChange={onChangeTestFunc}
+        onSelectionChange={onChangeTestFunc}
+        onFilterValueChange={() => {}}
+        onClearFilter={() => {}}
         label={testLabel}
-        initialValue={defaultSelectedOptions} />
+        selectedValues={defaultSelectedOptions}
+        filterValue=''
+      />
     );
     domNode = ReactDOM.findDOMNode(component);
+
+    componentWithNoSelections = TestUtils.renderIntoDocument(
+      <ReactCompactMultiselect
+        options={testData.TVShows}
+        onSelectionChange={onChangeTestFunc}
+        onFilterValueChange={() => {}}
+        onClearFilter={() => {}}
+        label={testLabel}
+        selectedValues={[]}
+        filterValue=''
+      />
+    );
+    domNodeWithNoSelections = ReactDOM.findDOMNode(componentWithNoSelections);
   });
 
   it('should render', function() {
@@ -34,7 +51,6 @@ describe('ReactCompactMultiselect', function() {
   });
 
   it('should have the correct label', function() {
-
     expect(TestUtils.findRenderedDOMComponentWithClass(component, labelClassName).innerHTML).toEqual(testLabel);
   });
 
@@ -44,8 +60,7 @@ describe('ReactCompactMultiselect', function() {
   });
 
   it('should not display a badge if there are no selected items', function() {
-    component.setState({value: []});
-    expect(domNode.getElementsByClassName(selectedBadgeClassName)[0]).toBeUndefined();
+    expect(domNodeWithNoSelections.getElementsByClassName(selectedBadgeClassName)[0]).toBeUndefined();
   });
 
   describe('filtering and selected items', function() {
