@@ -15,8 +15,8 @@
   "dependencies": {
     "lazy.js": "^0.4.2",
     "lunr": "^1.0.0",
-    "react-drop-button": "git+https://github.com/BI/react-drop-button",
-    "react-sizebox": "git+https://github.com/BI/react-sizebox#v0.1"
+    "react-drop-button": "git+ssh://git@github.com:DevTech-ADVISE/react-drop-button",
+    "react-sizebox": "git+ssh://git@github.com:DevTech-ADVISE/react-sizebox#v0.1"
   },
   "devDependencies": {
     "babel-core": "^6.9.0",
@@ -29,7 +29,7 @@
     "css-loader": "^0.23.1",
     "es5-shim": "^4.5.8",
     "jest-cli": "^12.1.0",
-    "js-test-data": "git+https://github.com/BI/js-test-data",
+    "js-test-data": "git+ssh://git@github.com:DevTech-ADVISE/js-test-data",
     "node-sass": "^3.7.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
